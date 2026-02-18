@@ -1,5 +1,7 @@
 
 import { PlatformData } from '../types';
+import { config } from './config';
+import { api } from './api';
 
 class RateLimiter {
     private tokens: number;
@@ -37,12 +39,43 @@ class RateLimiter {
 const metaRateLimiter = new RateLimiter(20, 5);
 
 export const MetaAdsService = {
+    async getOAuthUrl(): Promise<string> {
+        const resp = await api.get<{ url: string }>(`/oauth/meta/start`);
+        return resp.url;
+    },
+
+    async isLinked(): Promise<boolean> {
+        if (config.USE_MOCK_DATA) return false;
+        try {
+            const data = await api.get<any>(`/meta/ad-accounts`);
+            return !!data;
+        } catch {
+            return false;
+        }
+    },
+
+    async listAccounts(): Promise<Array<{ id: string; name: string }>> {
+        if (config.USE_MOCK_DATA) return [];
+        const data = await api.get<any>(`/meta/ad-accounts`);
+        const accounts = Array.isArray(data.data) ? data.data : [];
+        return accounts.map((a: any) => ({ id: a.id, name: a.name }));
+    },
+
     /**
-     * Simulates Graph API '/insights' endpoint
-     * GET graph.facebook.com/v18.0/{act_id}/insights
+     * Fetches Meta Ads insights from backend or falls back to mock
      */
     async fetchData(accountId: string, dateRange: 'daily' | 'weekly' | 'monthly'): Promise<PlatformData> {
-        return this.executeQuery(accountId, dateRange);
+        if (config.USE_MOCK_DATA) {
+            return this.executeQuery(accountId, dateRange);
+        }
+        try {
+            const qs = new URLSearchParams({ accountId, dateRange }).toString();
+            const data = await api.get<any>(`/meta/insights?${qs}`);
+            const insights = (data.data && data.data[0]) || {};
+            return this.transformResponse({ data: [insights] }, dateRange);
+        } catch (e) {
+            return this.executeQuery(accountId, dateRange);
+        }
     },
 
     async executeQuery(accountId: string, dateRange: 'daily' | 'weekly' | 'monthly', retryCount = 0): Promise<PlatformData> {

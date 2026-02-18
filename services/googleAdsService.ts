@@ -1,5 +1,7 @@
 
 import { PlatformData } from '../types';
+import { config } from './config';
+import { api } from './api';
 
 /**
  * Rate Limiter to ensure we don't exceed Google Ads API quotas.
@@ -75,6 +77,32 @@ export const GoogleAdsService = {
         `;
 
         return this.executeQuery(customerId, query, dateRange);
+    },
+    
+    /** Start OAuth for Google Ads */
+    async getOAuthUrl(): Promise<string> {
+        const resp = await api.get<{ url: string }>(`/oauth/google/start?scope=ads`);
+        return resp.url;
+    },
+
+    /** Check if Ads is linked by attempting to list customers */
+    async isLinked(): Promise<boolean> {
+        if (config.USE_MOCK_DATA) return false;
+        try {
+            const data = await api.get<any>(`/google/ads/customers`);
+            return !!data;
+        } catch {
+            return false;
+        }
+    },
+
+    /** List accessible customers */
+    async listCustomers(): Promise<string[]> {
+        if (config.USE_MOCK_DATA) return [];
+        const data = await api.get<any>(`/google/ads/customers`);
+        const resourceNames: string[] = Array.isArray(data.resourceNames) ? data.resourceNames : [];
+        // resourceNames like customers/1234567890 -> extract ID
+        return resourceNames.map(r => r.split('/')[1]).filter(Boolean);
     },
 
     /**

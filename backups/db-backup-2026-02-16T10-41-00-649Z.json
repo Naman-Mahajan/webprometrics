@@ -1,0 +1,1427 @@
+{
+  "users": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "email": "admin@example.com",
+      "password": "$2a$10$QVNzRM3LAtVhygFe3BqsWeh/cegEqf//Y9TzeArWaqfHmS4vwJTT6",
+      "role": "ADMIN",
+      "companyName": "Admin Company",
+      "isTrial": false,
+      "createdAt": "2025-12-19T13:26:48.292Z"
+    },
+    {
+      "id": "agency_owner_1766213035282",
+      "name": "Fred Marube",
+      "email": "marubefred02@gmail.com",
+      "password": "$2a$10$sFLcxhPMqJaG4IAkob0b8.xfJ0xOdRI8WyUY4zaMloNGOEApMkGC2",
+      "role": "ADMIN",
+      "companyName": "WebMetricsPro Agency",
+      "isTrial": false,
+      "subscription": "AGENCY",
+      "createdAt": "2025-12-20T06:43:55.284Z"
+    },
+    {
+      "id": "u_1766213268680",
+      "name": "Test User",
+      "email": "test_pl7zwh@example.com",
+      "password": "$2a$10$iORmbGyItGAhrDHtZEl9KeNiUIJusBjGJV46QGYZtloC2PjOegk3G",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:48.680Z",
+      "createdAt": "2025-12-20T06:47:48.680Z"
+    },
+    {
+      "id": "u_1766213278076",
+      "name": "Jest User",
+      "email": "jest_gz1xu7@example.com",
+      "password": "$2a$10$w5Fw3Bmq1KvbLk2WvQWZm.0XXj8VbDGCZRHOVd7E8lcrrYHAJRwli",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:58.076Z",
+      "createdAt": "2025-12-20T06:47:58.076Z"
+    },
+    {
+      "id": "u_1766217468287",
+      "name": "Test User",
+      "email": "test_j2pf8@example.com",
+      "password": "$2a$10$6ns/rWQIHh6gTi6KlPyBmecfgSlaG9Zuz/kptyjK2UZr517vk.6x6",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T07:57:48.287Z",
+      "createdAt": "2025-12-20T07:57:48.287Z"
+    },
+    {
+      "id": "u_1766218236969",
+      "name": "Test User",
+      "email": "test_7jqshb@example.com",
+      "password": "$2a$10$Q7FpYY5EKukrV.adkj0GoO7OmpmIU6PZ2nz7BuTYPAzcK2uneqgNm",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T08:10:36.970Z",
+      "createdAt": "2025-12-20T08:10:36.970Z"
+    },
+    {
+      "id": "u_1766221358883",
+      "name": "Client Test User",
+      "email": "client_test_s5j45t@example.com",
+      "password": "$2a$10$dkQupU7ApDuXN9bTy2xpNuTx5fe43iX4yWJzNFurz68QsngITphqq",
+      "role": "USER",
+      "companyName": "ClientTestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:38.883Z",
+      "createdAt": "2025-12-20T09:02:38.883Z"
+    },
+    {
+      "id": "u_1766221359706",
+      "name": "No Client User",
+      "email": "noclient_beyiry@example.com",
+      "password": "$2a$10$JFhlmnBJ5XBuAN11viSuP.MHFPgLYf1aeik.XNxpnCcnNo1U5FZv2",
+      "role": "USER",
+      "companyName": "NoClientCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:39.706Z",
+      "createdAt": "2025-12-20T09:02:39.706Z"
+    },
+    {
+      "id": "u_1766221361050",
+      "name": "User 1",
+      "email": "isolation1_d7rfcr@example.com",
+      "password": "$2a$10$X2BXFHcu5Tzgcm2WZDGo5ejBKB8JIkzSUl3RMoOz/FDw4BK797G5K",
+      "role": "USER",
+      "companyName": "User1Co",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:41.050Z",
+      "createdAt": "2025-12-20T09:02:41.050Z"
+    },
+    {
+      "id": "u_1766221368961",
+      "email": "test_xiicdt@example.com",
+      "password": "$2a$10$pwQr/TOvbORuzWbYUCUDFOjEDvE1FTutkB9sQWwg0O6Fq1o9kXZHW",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:48.961Z",
+      "createdAt": "2025-12-20T09:02:48.961Z"
+    },
+    {
+      "id": "u_1766221369239",
+      "name": "Test User",
+      "email": "invalid-email",
+      "password": "$2a$10$z.G65lvMZOuUkLH9PGlQJeq2d65fGekCKBLdL7gL4eahrlitsRL1q",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.239Z",
+      "createdAt": "2025-12-20T09:02:49.239Z"
+    },
+    {
+      "id": "u_1766221369489",
+      "name": "Test User",
+      "email": "test_4qpqbj@example.com",
+      "password": "$2a$10$iYdnbJiegqphiEWsutPdnufyNz8hMq.KOhZDAINRubcEOPZKZOTJ2",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.489Z",
+      "createdAt": "2025-12-20T09:02:49.489Z"
+    },
+    {
+      "id": "u_1766221369748",
+      "name": "Test User 1",
+      "email": "test_zgfxga@example.com",
+      "password": "$2a$10$DRLnBRE3iZWR6x.20WyHTO/7w.oAT3ZOuU6GNrTS76Ex9ffwSIBxu",
+      "role": "USER",
+      "companyName": "TestCo1",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.748Z",
+      "createdAt": "2025-12-20T09:02:49.748Z"
+    },
+    {
+      "id": "u_1766223244096",
+      "name": "Client Test User",
+      "email": "client_test_dkabdc@example.com",
+      "password": "$2a$10$Y5z5lgGiYid2y10U/GctduPqY0wDysAQE7JjDx.FBe.5lHRhJgWt6",
+      "role": "USER",
+      "companyName": "ClientTestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:04.096Z",
+      "createdAt": "2025-12-20T09:34:04.096Z"
+    },
+    {
+      "id": "u_1766223245357",
+      "name": "No Client User",
+      "email": "noclient_pt301s@example.com",
+      "password": "$2a$10$4ybPuvTCjM24TxagEp5vEO4r4EByfUbwpDDlRJvb6eQ5VP8cxN0Va",
+      "role": "USER",
+      "companyName": "NoClientCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:05.357Z",
+      "createdAt": "2025-12-20T09:34:05.357Z"
+    },
+    {
+      "id": "u_1766223247359",
+      "name": "User 1",
+      "email": "isolation1_tcbdra@example.com",
+      "password": "$2a$10$7orcIV9Qf56eW8Q8u7w9IOsFWOZA646JkHDBfjiCV88IYWcQst.me",
+      "role": "USER",
+      "companyName": "User1Co",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:07.359Z",
+      "createdAt": "2025-12-20T09:34:07.360Z"
+    },
+    {
+      "id": "u_1766223256489",
+      "name": "Jest User",
+      "email": "jest_w70h7x@example.com",
+      "password": "$2a$10$JvMYMIrNodTArtTIZQq1s.l0DF76KWi6dXQ.cyJfsU.kK1g4Jpwn6",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:16.489Z",
+      "createdAt": "2025-12-20T09:34:16.489Z"
+    },
+    {
+      "id": "u_1766223267480",
+      "email": "test_cn4g0p@example.com",
+      "password": "$2a$10$tUTJmmkyQF04J9YaEmJRyOgT88d.xgAMaL7sNi6X5LbjSlzVyeZkq",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:27.480Z",
+      "createdAt": "2025-12-20T09:34:27.480Z"
+    },
+    {
+      "id": "u_1766223268577",
+      "name": "Test User",
+      "email": "test_h1dwzq@example.com",
+      "password": "$2a$10$LUzZqWHqY3beU2cGYTsBHOv8OCG6Ho6wNAxqCBat8KCfI8Aglozce",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:28.577Z",
+      "createdAt": "2025-12-20T09:34:28.577Z"
+    },
+    {
+      "id": "u_1766223269006",
+      "name": "Test User 1",
+      "email": "test_ypnlto@example.com",
+      "password": "$2a$10$jJU8Ng9.DOujEaFRYG8CeesoeD2X.vb0H3odZg6zZt4jbBEFmI0Ge",
+      "role": "USER",
+      "companyName": "TestCo1",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:29.006Z",
+      "createdAt": "2025-12-20T09:34:29.006Z"
+    },
+    {
+      "id": "u_1766223279383",
+      "name": "Security Test User",
+      "email": "security_rti5k3@example.com",
+      "password": "$2a$10$TT81A8NKe.mNKTrQQVr9YuNnQsT65trN63pJ.5eMs7bNOV5j7neyi",
+      "role": "USER",
+      "companyName": "SecurityCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:34:39.383Z",
+      "createdAt": "2025-12-20T09:34:39.383Z"
+    },
+    {
+      "id": "u_1766230606553",
+      "name": "Client Test User",
+      "email": "client_test_y1eld5@example.com",
+      "password": "$2a$10$v8.nl7hm2nwipbqCfNMai.BRP.67r/DslGVjzIoKzKfORvw57Dmn.",
+      "role": "USER",
+      "companyName": "ClientTestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:36:46.553Z",
+      "createdAt": "2025-12-20T11:36:46.553Z"
+    },
+    {
+      "id": "u_1766230607480",
+      "name": "No Client User",
+      "email": "noclient_7bza3m@example.com",
+      "password": "$2a$10$L0IteJ/5ExQ42rQqN0lVsOSjpMCvTG40/Bh4XaVYCTm8IPuSrN8.O",
+      "role": "USER",
+      "companyName": "NoClientCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:36:47.480Z",
+      "createdAt": "2025-12-20T11:36:47.480Z"
+    },
+    {
+      "id": "u_1766230608252",
+      "name": "User 1",
+      "email": "isolation1_arxuwk@example.com",
+      "password": "$2a$10$u1Qt7l585.k5oToJRJe1s.pG14f0BRcmJSQvshCqTkuVHz3yXI/W2",
+      "role": "USER",
+      "companyName": "User1Co",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:36:48.252Z",
+      "createdAt": "2025-12-20T11:36:48.252Z"
+    },
+    {
+      "id": "u_1766230619705",
+      "name": "Security Test User",
+      "email": "security_0yznoc@example.com",
+      "password": "$2a$10$Tq4OYHG7zRPHAcg3cH3krebaNoGJRBTXA6vWJGBmggPpgcLGTNGAS",
+      "role": "USER",
+      "companyName": "SecurityCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:36:59.705Z",
+      "createdAt": "2025-12-20T11:36:59.705Z"
+    },
+    {
+      "id": "u_1766230631234",
+      "email": "test_zspxdn@example.com",
+      "password": "$2a$10$lpr8aiYcoDyMHT92wFKU5.gkipImQ64SUurGrDlcxk2TBe7AIJdAy",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:37:11.234Z",
+      "createdAt": "2025-12-20T11:37:11.234Z"
+    },
+    {
+      "id": "u_1766230631575",
+      "name": "Test User",
+      "email": "test_rpuaxk@example.com",
+      "password": "$2a$10$Irp6vcrsZS6I4UV8YKtPTe3J/Ar8m71Zez9D4RVIyvQA162Nd6JiK",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:37:11.575Z",
+      "createdAt": "2025-12-20T11:37:11.575Z"
+    },
+    {
+      "id": "u_1766230631868",
+      "name": "Test User 1",
+      "email": "test_kfx2uh@example.com",
+      "password": "$2a$10$DXgtfXVKNbly2b3ox1N1k..UFbPH3s2M7d7/KgvJ9aLHDFN8SvdZ.",
+      "role": "USER",
+      "companyName": "TestCo1",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:37:11.868Z",
+      "createdAt": "2025-12-20T11:37:11.868Z"
+    },
+    {
+      "id": "u_1766230637647",
+      "name": "Jest User",
+      "email": "jest_ahaxsf@example.com",
+      "password": "$2a$10$wqjXoQEJDItK0ISUtYeLR.KWccxxrovIO1NLfpuOjnyfbmsA0O4pi",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:37:17.647Z",
+      "createdAt": "2025-12-20T11:37:17.647Z"
+    },
+    {
+      "id": "u_1766230648683",
+      "name": "User",
+      "email": "test_g8j1zf@example.com",
+      "password": "$2a$10$i8CYXN0SUPe2otqs/VOSHOrT7eSMht.IQmaWZPckDu/ymVg1mt5vS",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T11:37:28.683Z",
+      "createdAt": "2025-12-20T11:37:28.683Z"
+    },
+    {
+      "id": "u_1766235579248",
+      "name": "Jest User",
+      "email": "jest_9m7ms3@example.com",
+      "password": "$2a$10$KfaAo0km/mXKh802A3.0t.1YdlJkPbOByubwQ2zP4acXwYuAU.S9i",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T12:59:39.248Z",
+      "createdAt": "2025-12-20T12:59:39.248Z"
+    },
+    {
+      "id": "u_1766249197195",
+      "name": "Smoke Test",
+      "email": "smoke_wwqpql@example.com",
+      "password": "$2a$10$n9GlLQ/4mSx8yiJycSz7vO9HKIcQOOV4ytH6gJf2NTLpMLoye3u.m",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:46:37.196Z",
+      "createdAt": "2025-12-20T16:46:37.196Z"
+    },
+    {
+      "id": "u_1766249214528",
+      "name": "Smoke Test",
+      "email": "smoke_r6nzmd@example.com",
+      "password": "$2a$10$ZdV9dGAm4bnIqI1GUYouuu2ZJW1ShdhGamQVwwHMipY/TYgiYMK/i",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:46:54.528Z",
+      "createdAt": "2025-12-20T16:46:54.528Z"
+    },
+    {
+      "id": "u_1766249234593",
+      "name": "Smoke Test",
+      "email": "smoke_rn00w2@example.com",
+      "password": "$2a$10$mjmsLQfVuZqMjVmbHHQiM.6NMbCaSEuPkQyE8iPO.09J10mp/GtDG",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:47:14.593Z",
+      "createdAt": "2025-12-20T16:47:14.593Z"
+    },
+    {
+      "id": "u_1766249693744",
+      "name": "Smoke Test",
+      "email": "smoke_8mrp7g@example.com",
+      "password": "$2a$10$dXeGJTjpVnfSX.qjx99.n.uyxWs35C8Dbd0CavPn9OC18UF/etSCG",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:54:53.745Z",
+      "createdAt": "2025-12-20T16:54:53.745Z"
+    },
+    {
+      "id": "u_1766249714022",
+      "name": "Smoke Test",
+      "email": "smoke_x1tcey@example.com",
+      "password": "$2a$10$Blingvfd5g53jMXtiM4NLeEQ5VkMolVxwEjfQTR/XJvlPFVPu4Z3a",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:55:14.022Z",
+      "createdAt": "2025-12-20T16:55:14.022Z"
+    },
+    {
+      "id": "u_1766249724700",
+      "name": "Smoke Test",
+      "email": "smoke_ctu4ok@example.com",
+      "password": "$2a$10$o6Qp6OeJ48gYkiZYVzrc9ertt4qEjeCC1wYFdPHcaoTcYtfqcNvoq",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T16:55:24.700Z",
+      "createdAt": "2025-12-20T16:55:24.700Z"
+    },
+    {
+      "id": "u_1766474331643",
+      "name": "Client Test User",
+      "email": "client_test_p9wcgz@example.com",
+      "password": "$2a$10$5wcE15INKThkyVr6znxoYOAqwY.HwBTIJ1lTGhZfSWx4tGGhYkR2u",
+      "role": "USER",
+      "companyName": "ClientTestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:18:51.643Z",
+      "createdAt": "2025-12-23T07:18:51.643Z"
+    },
+    {
+      "id": "u_1766474334923",
+      "name": "No Client User",
+      "email": "noclient_tp839x@example.com",
+      "password": "$2a$10$vjpHX4WJmvHGAzzwp.pJ5e/r0zYPTYM9axI5UV3vciXGxAJAlU2B6",
+      "role": "USER",
+      "companyName": "NoClientCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:18:54.923Z",
+      "createdAt": "2025-12-23T07:18:54.923Z"
+    },
+    {
+      "id": "u_1766474340265",
+      "name": "User 1",
+      "email": "isolation1_wthbe3@example.com",
+      "password": "$2a$10$QYGxm.RTqMjlNvH4IcGFbOtVLPXUTu1LnMIgJ4r/58cCSg/EKALxW",
+      "role": "USER",
+      "companyName": "User1Co",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:00.265Z",
+      "createdAt": "2025-12-23T07:19:00.265Z"
+    },
+    {
+      "id": "u_1766474352652",
+      "name": "Security Test User",
+      "email": "security_tll9uh@example.com",
+      "password": "$2a$10$az97WR71ZIyhF2JCWMa/FO9RFidivPJZrWSRBYRHndA91euTPgSmS",
+      "role": "USER",
+      "companyName": "SecurityCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:12.652Z",
+      "createdAt": "2025-12-23T07:19:12.652Z"
+    },
+    {
+      "id": "u_1766474372383",
+      "name": "Jest User",
+      "email": "jest_s5psbk@example.com",
+      "password": "$2a$10$AhzzVjB2/tm0Cvcldu9Z4u7aMoT2/IYaDniSZnJE7D0v8d/fcB1zK",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:32.383Z",
+      "createdAt": "2025-12-23T07:19:32.384Z"
+    },
+    {
+      "id": "u_1766474382573",
+      "email": "test_ma7jcv@example.com",
+      "password": "$2a$10$0Zx15NKdCDxegJWbfw0gJONb0RwsX3uCIeGETfUePd4e5KSvTzJOi",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:42.573Z",
+      "createdAt": "2025-12-23T07:19:42.573Z"
+    },
+    {
+      "id": "u_1766474383153",
+      "name": "Test User",
+      "email": "test_70r2d5@example.com",
+      "password": "$2a$10$fsBDYF0SU5dWa2qd0VyAy.Zz8.tInzlf4/wD7ifzdFSceylbsKN3m",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:43.153Z",
+      "createdAt": "2025-12-23T07:19:43.153Z"
+    },
+    {
+      "id": "u_1766474383718",
+      "name": "Test User 1",
+      "email": "test_6n5agv@example.com",
+      "password": "$2a$10$.wcsiftulfRiTOYLSWQ7sesjPWltCnbS4KnbmAqVHv..m4u3U2IzO",
+      "role": "USER",
+      "companyName": "TestCo1",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:43.718Z",
+      "createdAt": "2025-12-23T07:19:43.718Z"
+    },
+    {
+      "id": "u_1766474396017",
+      "name": "User",
+      "email": "test_i51kow@example.com",
+      "password": "$2a$10$JLr855FB5IyqlTOe4cpKmuJqEiAc9GMKEXs2WbaZUwiIvUd7AIK.2",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T07:19:56.017Z",
+      "createdAt": "2025-12-23T07:19:56.017Z"
+    },
+    {
+      "id": "u_1766486879542",
+      "name": "Smoke User",
+      "email": "smoke_JlhmzS@example.com",
+      "password": "$2a$10$.K9iRPusz3dP220TyAlXXeDo6mj64Ysz2MddSr1kv5wEEaG2X3xkG",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T10:47:59.542Z",
+      "createdAt": "2025-12-23T10:47:59.542Z"
+    },
+    {
+      "id": "u_1766486925150",
+      "name": "Smoke User",
+      "email": "smoke_ecJ2BI@example.com",
+      "password": "$2a$10$h0xD4RtDdoJJUnKHtES7C.JAwToaFp46.f//waPI7ngPZJBkSdWYe",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T10:48:45.150Z",
+      "createdAt": "2025-12-23T10:48:45.150Z"
+    },
+    {
+      "id": "u_1766487171838",
+      "name": "Smoke User",
+      "email": "smoke_izqvuh@example.com",
+      "password": "$2a$10$9ymOir8xPKrFSrHK/Dcrae.7NsftxajBrnu0wnt8OZOlbl7FeKlJ2",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T10:52:51.838Z",
+      "createdAt": "2025-12-23T10:52:51.838Z"
+    },
+    {
+      "id": "u_1766487296026",
+      "name": "Smoke Test",
+      "email": "smoke_z06oov@example.com",
+      "password": "$2a$10$CK2ggARFF0uHVuuWfuRRdOB.i/wC2PIHt9MnOO8z0XqCbcgrQoHiS",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T10:54:56.026Z",
+      "createdAt": "2025-12-23T10:54:56.026Z"
+    },
+    {
+      "id": "u_1766487625749",
+      "name": "Smoke Test",
+      "email": "smoke_ectk50@example.com",
+      "password": "$2a$10$1Zq4YFlPZHkap5R7M/G98Ot1.j1ZuBDX8etjGsz7zYGwk/alF7EkG",
+      "role": "USER",
+      "companyName": "SmokeCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-06T11:00:25.749Z",
+      "createdAt": "2025-12-23T11:00:25.749Z"
+    }
+  ],
+  "clients": [
+    {
+      "name": "Client ectk50",
+      "website": "https://example.com",
+      "status": "Active",
+      "nextReport": "2025-12-23T11:00:26.863Z",
+      "logo": null,
+      "companyName": "SmokeCo",
+      "tenantId": "SmokeCo",
+      "userId": "u_1766487625749",
+      "id": "1766487626863",
+      "createdAt": "2025-12-23T11:00:26.863Z"
+    }
+  ],
+  "reports": [
+    {
+      "clientName": "N/A",
+      "name": "<img src=x onerror=alert(\"xss\")>",
+      "date": "2025-12-20T09:34:40.220Z",
+      "status": "Draft",
+      "platform": "Mixed",
+      "companyName": "SecurityCo",
+      "tenantId": "SecurityCo",
+      "userId": "u_1766223279383",
+      "id": "1766223280220",
+      "createdAt": "2025-12-20T09:34:40.220Z"
+    },
+    {
+      "clientName": "N/A",
+      "name": "<img src=x onerror=alert(\"xss\")>",
+      "date": "2025-12-20T11:37:00.333Z",
+      "status": "Draft",
+      "platform": "Mixed",
+      "companyName": "SecurityCo",
+      "tenantId": "SecurityCo",
+      "userId": "u_1766230619705",
+      "id": "1766230620333",
+      "createdAt": "2025-12-20T11:37:00.333Z"
+    },
+    {
+      "clientName": "N/A",
+      "name": "<img src=x onerror=alert(\"xss\")>",
+      "date": "2025-12-23T07:19:13.491Z",
+      "status": "Draft",
+      "platform": "Mixed",
+      "companyName": "SecurityCo",
+      "tenantId": "SecurityCo",
+      "userId": "u_1766474352652",
+      "id": "1766474353491",
+      "createdAt": "2025-12-23T07:19:13.491Z"
+    }
+  ],
+  "templates": [],
+  "packages": [
+    {
+      "id": "pkg_1",
+      "name": "SEO Starter",
+      "description": "Essential SEO monitoring.",
+      "price": 25000,
+      "interval": "Monthly",
+      "features": [
+        "Monthly Site Audit",
+        "Keyword Tracking"
+      ]
+    },
+    {
+      "id": "pkg_2",
+      "name": "PPC Growth",
+      "description": "Comprehensive ad management.",
+      "price": 65000,
+      "interval": "Monthly",
+      "features": [
+        "Ad Spend Management",
+        "Weekly Optimization"
+      ]
+    }
+  ],
+  "invoices": [],
+  "integrations": [
+    {
+      "id": "google_ads",
+      "name": "Google Ads",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Campaign performance..."
+    },
+    {
+      "id": "ga4",
+      "name": "Google Analytics 4",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Web traffic..."
+    },
+    {
+      "id": "meta_ads",
+      "name": "Meta Ads",
+      "provider": "meta",
+      "status": "Disconnected",
+      "description": "Social campaign..."
+    },
+    {
+      "id": "gmb",
+      "name": "Google My Business",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Local profile views..."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "provider": "linkedin",
+      "status": "Disconnected",
+      "description": "Company page insights..."
+    },
+    {
+      "id": "x_ads",
+      "name": "X (Twitter) Ads",
+      "provider": "x",
+      "status": "Disconnected",
+      "description": "Tweet engagement..."
+    },
+    {
+      "id": "tiktok_ads",
+      "name": "TikTok Ads",
+      "provider": "tiktok",
+      "status": "Disconnected",
+      "description": "Video views..."
+    }
+  ],
+  "passwordResetTokens": [],
+  "auditLogs": [],
+  "clientReportCustomizations": [],
+  "kpis": [],
+  "scheduledReports": [],
+  "subscriptions": [],
+  "oauthTokens": [],
+  "paymentConfig": {
+    "stripe": {
+      "enabled": false,
+      "publishableKey": "",
+      "secretKey": "",
+      "webhookSecret": ""
+    },
+    "paypal": {
+      "enabled": false,
+      "clientId": "",
+      "clientSecret": "",
+      "mode": "sandbox"
+    },
+    "bankAccount": {
+      "accountName": "",
+      "accountNumber": "",
+      "bankName": "",
+      "swiftCode": "",
+      "routingNumber": ""
+    }
+  },
+  "paymentTransactions": [],
+  "errorLogs": [
+    {
+      "id": "error_1766223285220_kj1pr7dok",
+      "message": "Not allowed by CORS",
+      "path": "/api/clients",
+      "method": "OPTIONS",
+      "ip": "::ffff:127.0.0.1",
+      "timestamp": "2025-12-20T09:34:45.220Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766230623540_fm1aml2ka",
+      "message": "Not allowed by CORS",
+      "path": "/api/clients",
+      "method": "OPTIONS",
+      "ip": "::ffff:127.0.0.1",
+      "timestamp": "2025-12-20T11:37:03.540Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766474358705_ulteq4zv1",
+      "message": "Not allowed by CORS",
+      "path": "/api/clients",
+      "method": "OPTIONS",
+      "ip": "::ffff:127.0.0.1",
+      "timestamp": "2025-12-23T07:19:18.706Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485438318_k09bu08vn",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-C0VYE996.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:23:58.321Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485438360_hopujn5ca",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:23:58.360Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485438392_j3l7cxlem",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:23:58.392Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485438864_7lqp3ffod",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:23:58.865Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485438875_snm88mvoq",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:23:58.876Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485455120_n2c371h1e",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-C0VYE996.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:15.121Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485455140_1osdc0bl6",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:15.140Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485455221_rg3y8cev9",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:15.221Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485455231_43eq8ia3a",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:15.231Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485455243_ny1qdd39i",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:15.243Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485483802_obgoienda",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-C0VYE996.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:43.802Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485483812_e43qscewu",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:43.812Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485483828_3xxhfgll7",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:43.828Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485483838_dmiktjfl3",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:43.838Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485483850_ihg53rfmd",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:43.850Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485492740_rsfv02raa",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-C0VYE996.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:52.740Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485492749_e6o0he9la",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:52.749Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485492758_f2vm3jt6t",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:52.758Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485492766_zmbut1lgm",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:52.767Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766485492778_qj0uth7ti",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:24:52.778Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486831358_5am93yyqp",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-WxnTn1Sk.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:11.358Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486831377_z5nqq78av",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:11.377Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486831389_37gxjkio7",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:11.389Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486831402_maoz0c6qf",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:11.402Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486831427_asbgdazse",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:11.427Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486841835_xhn2d6mqd",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-WxnTn1Sk.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:21.835Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486841843_gmsd8c9ce",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:21.843Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486841869_czuvmtsu0",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DQiHloUp.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:21.869Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486841887_9wk12mtx1",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-zh1SQBUI.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:21.887Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766486841938_hfvwa0ydr",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-J8EI9F9n.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T10:47:21.939Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497847120_28rrcnthl",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:50:47.123Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497847478_rp8lidl55",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:50:47.478Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497847695_w49c69tf7",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:50:47.695Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497847862_537jltqfi",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:50:47.862Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497847961_lasei6upr",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:50:47.962Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497863129_yxxk0hys3",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:51:03.130Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497863214_u6jlksyh2",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:51:03.214Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497863372_8t3n4mr6q",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:51:03.372Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497863491_iehv2mlnm",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:51:03.491Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766497863720_ppdnntigs",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:51:03.720Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498002150_s3ttlwyi6",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:22.150Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498002283_ki8m2wucj",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:22.283Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498002444_tdxkijyob",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:22.444Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498002570_ak92u030x",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:22.570Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498002850_1sjq2i5y4",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:22.850Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498005749_r5v9helc5",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:25.749Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498006070_dgwiie4cz",
+      "message": "Not allowed by CORS",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:26.070Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498006284_f6s9n316p",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:26.284Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498006734_n0t7t65qw",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:26.745Z",
+      "context": {}
+    },
+    {
+      "id": "error_1766498006878_wniw4mz7e",
+      "message": "Not allowed by CORS",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2025-12-23T13:53:26.878Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237861851_iwj9yh6v1",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:01.851Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237861856_1ddat0vi0",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:01.856Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237861859_fwm7t5dst",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:01.859Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237861862_jr411kjl4",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:01.862Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237861866_t0axbt45d",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:01.866Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237862309_rymtxgt09",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:02.309Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237869133_0v4x4htgt",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:09.133Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237869136_umizm5lj5",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:09.136Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237869144_shkzxvj6z",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:09.144Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237869151_jkuq0u7sp",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:09.151Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237869154_psktbl5id",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:09.154Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237870424_jkecdrrfd",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:10.424Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237876638_cwmhmwao9",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-Y3sn_3YL.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:16.639Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237876642_ww646gejz",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-react-B--z-fyW.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:16.642Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237876647_cd49f6ht8",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/index-DfYlTw7v.css",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:16.647Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237876649_xgzo8clsm",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-charts-Cu9K_HZC.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:16.649Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771237876651_3gow6vopq",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/assets/vendor-icons-CORZZojc.js",
+      "method": "GET",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:31:16.651Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238295873_7q9y44lf8",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:38:15.873Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238318105_hvi3otjtt",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:38:38.105Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238319712_80li5eg8c",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:38:39.712Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238373949_hc1u1h1te",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:39:33.950Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238396417_a1ub49tk3",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:16)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:39:56.417Z",
+      "context": {}
+    },
+    {
+      "id": "error_1771238440018_d328nwpz3",
+      "message": "Not allowed by CORS",
+      "stack": "Error: Not allowed by CORS\n    at origin (file:///home/lenovo/Downloads/webmetricspro/server.js:86:22)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:219:13\n    at optionsCallback (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:199:9)\n    at corsMiddleware (/home/lenovo/Downloads/webmetricspro/node_modules/cors/lib/index.js:204:7)\n    at Layer.handle [as handle_request] (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:328:13)\n    at /home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:286:9\n    at router.process_params (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:346:12)\n    at next (/home/lenovo/Downloads/webmetricspro/node_modules/express/lib/router/index.js:280:10)\n    at internalNext (file:///home/lenovo/Downloads/webmetricspro/node_modules/helmet/index.mjs:533:6)",
+      "path": "/auth/signup",
+      "method": "OPTIONS",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-02-16T10:40:40.019Z",
+      "context": {}
+    }
+  ]
+}

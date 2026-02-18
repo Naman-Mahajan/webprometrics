@@ -12,9 +12,11 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import IntegrationsPage from './components/IntegrationsPage';
 import TemplatesPage from './components/TemplatesPage';
-import PricingPage from './components/PricingPage';
+import PricingPageEnhanced from './components/PricingPageEnhanced';
+import WhatsAppButton from './components/WhatsAppButton';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { ThemeProvider } from './components/ThemeProvider';
 
 type Page = 'home' | 'integrations' | 'templates' | 'pricing' | 'login' | 'dashboard';
 
@@ -93,7 +95,7 @@ const AppContent: React.FC = () => {
       case 'templates':
         return <TemplatesPage onNavigateToSignup={navigateToSignup} />;
       case 'pricing':
-        return <PricingPage onNavigateToSignup={navigateToSignup} />;
+        return <PricingPageEnhanced onNavigateToSignup={navigateToSignup} />;
       case 'home':
       default:
         return (
@@ -112,8 +114,8 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans">
-      <Navbar 
-        onNavigateToLogin={navigateToLogin} 
+      <Navbar
+        onNavigateToLogin={navigateToLogin}
         onNavigateToSignup={navigateToSignup}
         onNavigateToPage={navigateToPage}
         currentPage={currentPage}
@@ -122,17 +124,20 @@ const AppContent: React.FC = () => {
         {renderPage()}
       </main>
       <Footer onNavigateToPage={navigateToPage} />
+      <WhatsAppButton phoneNumber="+25472589112" />
     </div>
   );
 };
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <AppContent />
-      </ToastProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <AppContent />
+        </ToastProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

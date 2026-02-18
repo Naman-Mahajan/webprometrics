@@ -1,0 +1,11 @@
+ℹ DATABASE_URL not set; using JSON file storage
+🚀 Server running on port 8080
+📦 Environment: production
+🔒 Security: Enabled
+📊 Features: Audit Logging, Backups, KPIs, Scheduled Reports, GDPR, Multi-Tenant, RBAC
+🌐 Access at: http://localhost:8080
+💾 Initial backup created
+[2025-12-23T11:00:25.242Z] POST /api/auth/signup - IP: 127.0.0.1
+[2025-12-23T11:00:25.890Z] POST /api/auth/login - IP: 127.0.0.1
+[2025-12-23T11:00:26.848Z] POST /api/clients - IP: 127.0.0.1
+[2025-12-23T11:00:26.887Z] GET /api/clients - IP: 127.0.0.1

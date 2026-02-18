@@ -1,0 +1,133 @@
+{
+  "users": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "email": "admin@example.com",
+      "password": "$2a$10$QVNzRM3LAtVhygFe3BqsWeh/cegEqf//Y9TzeArWaqfHmS4vwJTT6",
+      "role": "ADMIN",
+      "companyName": "Admin Company",
+      "isTrial": false,
+      "createdAt": "2025-12-19T13:26:48.292Z"
+    },
+    {
+      "id": "agency_owner_1766213035282",
+      "name": "Fred Marube",
+      "email": "marubefred02@gmail.com",
+      "password": "$2a$10$sFLcxhPMqJaG4IAkob0b8.xfJ0xOdRI8WyUY4zaMloNGOEApMkGC2",
+      "role": "ADMIN",
+      "companyName": "WebMetricsPro Agency",
+      "isTrial": false,
+      "subscription": "AGENCY",
+      "createdAt": "2025-12-20T06:43:55.284Z"
+    }
+  ],
+  "clients": [],
+  "reports": [],
+  "templates": [],
+  "packages": [
+    {
+      "id": "pkg_1",
+      "name": "SEO Starter",
+      "description": "Essential SEO monitoring.",
+      "price": 25000,
+      "interval": "Monthly",
+      "features": [
+        "Monthly Site Audit",
+        "Keyword Tracking"
+      ]
+    },
+    {
+      "id": "pkg_2",
+      "name": "PPC Growth",
+      "description": "Comprehensive ad management.",
+      "price": 65000,
+      "interval": "Monthly",
+      "features": [
+        "Ad Spend Management",
+        "Weekly Optimization"
+      ]
+    }
+  ],
+  "invoices": [],
+  "integrations": [
+    {
+      "id": "google_ads",
+      "name": "Google Ads",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Campaign performance..."
+    },
+    {
+      "id": "ga4",
+      "name": "Google Analytics 4",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Web traffic..."
+    },
+    {
+      "id": "meta_ads",
+      "name": "Meta Ads",
+      "provider": "meta",
+      "status": "Disconnected",
+      "description": "Social campaign..."
+    },
+    {
+      "id": "gmb",
+      "name": "Google My Business",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Local profile views..."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "provider": "linkedin",
+      "status": "Disconnected",
+      "description": "Company page insights..."
+    },
+    {
+      "id": "x_ads",
+      "name": "X (Twitter) Ads",
+      "provider": "x",
+      "status": "Disconnected",
+      "description": "Tweet engagement..."
+    },
+    {
+      "id": "tiktok_ads",
+      "name": "TikTok Ads",
+      "provider": "tiktok",
+      "status": "Disconnected",
+      "description": "Video views..."
+    }
+  ],
+  "passwordResetTokens": [],
+  "auditLogs": [],
+  "clientReportCustomizations": [],
+  "kpis": [],
+  "scheduledReports": [],
+  "subscriptions": [],
+  "oauthTokens": [],
+  "paymentConfig": {
+    "stripe": {
+      "enabled": false,
+      "publishableKey": "",
+      "secretKey": "",
+      "webhookSecret": ""
+    },
+    "paypal": {
+      "enabled": false,
+      "clientId": "",
+      "clientSecret": "",
+      "mode": "sandbox"
+    },
+    "bankAccount": {
+      "accountName": "",
+      "accountNumber": "",
+      "bankName": "",
+      "swiftCode": "",
+      "routingNumber": ""
+    }
+  },
+  "paymentTransactions": []
+}

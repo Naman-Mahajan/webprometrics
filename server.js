@@ -1,28 +1,25 @@
 /**
  * Production Node.js Server
  * Serves the React Frontend and provides the REST API with JSON Persistence.
+ * Converted to CommonJS for LiteSpeed Web Server compatibility
  */
 
-import express from 'express';
-import path from 'path';
-import cors from 'cors';
-import fs from 'fs';
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import { body, validationResult, param } from 'express-validator';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
-import dotenv from 'dotenv';
-import prisma from './services/db.js';
-import { google } from 'googleapis';
-import { fileURLToPath } from 'url';
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const fs = require('fs');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { body, validationResult, param } = require('express-validator');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const dotenv = require('dotenv');
+const prisma = require('./services/db.js');
+const { google } = require('googleapis');
 
 // Load environment variables
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -33,11 +30,11 @@ const DB_ENABLED = !!process.env.DATABASE_URL;
 // Security: Require JWT_SECRET in production
 const SECRET_KEY = process.env.JWT_SECRET;
 if (!SECRET_KEY || SECRET_KEY === 'your-super-secret-jwt-key-change-this-in-production') {
-  if (NODE_ENV === 'production') {
-    console.error('ERROR: JWT_SECRET must be set in production!');
-    process.exit(1);
-  }
-  console.warn('WARNING: Using default JWT_SECRET. Set JWT_SECRET in production!');
+    if (NODE_ENV === 'production') {
+        console.error('ERROR: JWT_SECRET must be set in production!');
+        process.exit(1);
+    }
+    console.warn('WARNING: Using default JWT_SECRET. Set JWT_SECRET in production!');
 }
 
 const JWT_SECRET = SECRET_KEY || 'development-secret-key-change-in-production';
@@ -72,27 +69,27 @@ const decryptText = (b64) => {
 };
 
 // CORS Configuration
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
-  : (NODE_ENV === 'production' ? [] : ['http://localhost:3000', 'http://localhost:5173']);
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+    : (NODE_ENV === 'production' ? [] : ['http://localhost:3000', 'http://localhost:5173']);
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  optionsSuccessStatus: 200
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200
 };
 
 // Middleware
 app.use(helmet({
-  contentSecurityPolicy: NODE_ENV === 'production' ? undefined : false,
+    contentSecurityPolicy: NODE_ENV === 'production' ? undefined : false,
 }));
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
@@ -100,9 +97,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request Logging Middleware
 app.use((req, res, next) => {
-  const timestamp = new Date().toISOString();
-  console.log(`[${timestamp}] ${req.method} ${req.path} - IP: ${req.ip}`);
-  next();
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.path} - IP: ${req.ip}`);
+    next();
 });
 
 // Rate Limiting (overridable for tests via env)
@@ -172,32 +169,32 @@ let db = loadDb();
 
 // Initialize password reset tokens storage
 if (!db.passwordResetTokens) {
-  db.passwordResetTokens = [];
+    db.passwordResetTokens = [];
 }
 
 // Initialize audit log storage
 if (!db.auditLogs) {
-  db.auditLogs = [];
+    db.auditLogs = [];
 }
 
 // Initialize client report customizations
 if (!db.clientReportCustomizations) {
-  db.clientReportCustomizations = [];
+    db.clientReportCustomizations = [];
 }
 
 // Initialize KPIs
 if (!db.kpis) {
-  db.kpis = [];
+    db.kpis = [];
 }
 
 // Initialize scheduled reports
 if (!db.scheduledReports) {
-  db.scheduledReports = [];
+    db.scheduledReports = [];
 }
 
 // Initialize subscriptions
 if (!db.subscriptions) {
-  db.subscriptions = [];
+    db.subscriptions = [];
 }
 
 // Initialize OAuth token storage
@@ -207,21 +204,21 @@ if (!db.oauthTokens) {
 
 // Initialize admin user
 if (db.users.length === 0 || !db.users.find(u => u.id === 'super_admin')) {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
-  const hashedPassword = bcrypt.hashSync(adminPassword, 10);
-  
-  db.users.push({
-    id: 'super_admin',
-    name: 'Super Admin',
-    email: adminEmail,
-    password: hashedPassword,
-    role: 'ADMIN',
-    companyName: 'Admin Company',
-    isTrial: false,
-    createdAt: new Date().toISOString()
-  });
-  saveDb(db);
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+    const hashedPassword = bcrypt.hashSync(adminPassword, 10);
+
+    db.users.push({
+        id: 'super_admin',
+        name: 'Super Admin',
+        email: adminEmail,
+        password: hashedPassword,
+        role: 'ADMIN',
+        companyName: 'Admin Company',
+        isTrial: false,
+        createdAt: new Date().toISOString()
+    });
+    saveDb(db);
     console.log(`Admin user created: ${adminEmail}`);
 }
 
@@ -229,7 +226,7 @@ if (db.users.length === 0 || !db.users.find(u => u.id === 'super_admin')) {
 if (NODE_ENV !== 'production') {
     if (!db.users.find(u => u.email === 'marubefred02@gmail.com')) {
         const agencyOwnerPassword = bcrypt.hashSync('marubekenya2025', 10);
-    
+
         db.users.push({
             id: 'agency_owner_' + Date.now(),
             name: 'Fred Marube',
@@ -270,9 +267,9 @@ const verifyToken = (token) => {
 const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
             message: 'Validation failed',
-            errors: errors.array() 
+            errors: errors.array()
         });
     }
     next();
@@ -280,62 +277,62 @@ const handleValidationErrors = (req, res, next) => {
 
 // --- AUTH MIDDLEWARE ---
 const requireAuth = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  
-  const token = authHeader.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'Invalid authorization header format' });
-  }
-  
-  const decoded = verifyToken(token);
-  if (!decoded) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
-  }
-  
-  req.user = decoded;
-  next();
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: 'Invalid authorization header format' });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded) {
+        return res.status(401).json({ message: 'Invalid or expired token' });
+    }
+
+    req.user = decoded;
+    next();
 };
 
 // Combined auth + trial/subscription check for protected routes
 const requireAuthAndAccess = (req, res, next) => {
-  // First check authentication
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  
-  const token = authHeader.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'Invalid authorization header format' });
-  }
-  
-  const decoded = verifyToken(token);
-  if (!decoded) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
-  }
-  
-  req.user = decoded;
-  
-  // Then check trial/subscription
-  checkTrialAndSubscription(req, res, next);
+    // First check authentication
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: 'Invalid authorization header format' });
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded) {
+        return res.status(401).json({ message: 'Invalid or expired token' });
+    }
+
+    req.user = decoded;
+
+    // Then check trial/subscription
+    checkTrialAndSubscription(req, res, next);
 };
 
 // --- ROLE-BASED ACCESS CONTROL ---
 const requireRole = (...allowedRoles) => {
-  return (req, res, next) => {
-    if (!req.user) {
-      return res.status(401).json({ message: 'Authentication required' });
-    }
-    
-    if (!allowedRoles.includes(req.user.role)) {
-      return res.status(403).json({ message: 'Insufficient permissions' });
-    }
-    
-  next();
-  };
+    return (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({ message: 'Authentication required' });
+        }
+
+        if (!allowedRoles.includes(req.user.role)) {
+            return res.status(403).json({ message: 'Insufficient permissions' });
+        }
+
+        next();
+    };
 };
 
 // --- GOOGLE OAUTH (Search Console) ---
@@ -463,7 +460,7 @@ app.get('/api/google/search-console/sites', requireAuth, async (req, res) => {
     }
 });
 
-// Fetch Search Console metrics for a site
+// Fetch Search Console metrics for a site (live fetch)
 app.get('/api/google/search-console/metrics', requireAuth, async (req, res) => {
     try {
         const { siteUrl, dateRange } = req.query;
@@ -490,10 +487,35 @@ app.get('/api/google/search-console/metrics', requireAuth, async (req, res) => {
             rowLimit: 100
         };
         const resp = await webmasters.searchanalytics.query({ siteUrl: siteUrl.toString(), requestBody: body });
+        // Store the result for historical tracking
+        if (!db.searchConsoleHistory) db.searchConsoleHistory = [];
+        db.searchConsoleHistory.push({
+            id: 'gsc_' + Date.now(),
+            userId: req.user.id,
+            siteUrl: siteUrl.toString(),
+            dateRange: range,
+            fetchedAt: new Date().toISOString(),
+            data: resp.data
+        });
+        saveDb(db);
         res.json(resp.data);
     } catch (e) {
         console.error('SC metrics error', e);
         res.status(500).json({ message: 'Failed to fetch metrics' });
+    }
+});
+
+// Get Search Console keyword history for a site
+app.get('/api/google/search-console/history', requireAuth, async (req, res) => {
+    try {
+        const { siteUrl, dateRange } = req.query;
+        if (!siteUrl) return res.status(400).json({ message: 'siteUrl is required' });
+        const range = (dateRange || 'daily').toString();
+        if (!db.searchConsoleHistory) db.searchConsoleHistory = [];
+        const history = db.searchConsoleHistory.filter(h => h.userId === req.user.id && h.siteUrl === siteUrl && h.dateRange === range);
+        res.json({ history });
+    } catch (e) {
+        res.status(500).json({ message: 'Failed to fetch history' });
     }
 });
 
@@ -658,7 +680,7 @@ app.post('/api/webhooks/google/revoke',
         try {
             // In production, verify Google's signature here
             const { token } = req.body;
-            
+
             if (token) {
                 // Find and remove the revoked token
                 const tokensBefore = db.oauthTokens.length;
@@ -669,14 +691,14 @@ app.post('/api/webhooks/google/revoke',
                     const parsed = JSON.parse(data);
                     return parsed.access_token !== token;
                 });
-                
+
                 if (db.oauthTokens.length < tokensBefore) {
                     saveDb(db);
                     console.log('Google token revoked via webhook');
                     auditLog('OAUTH_REVOKED', 'system', { provider: 'google', via: 'webhook' });
                 }
             }
-            
+
             res.status(200).send('OK');
         } catch (e) {
             console.error('Google revoke webhook error:', e);
@@ -691,24 +713,24 @@ app.post('/api/webhooks/meta/deauth',
     (req, res) => {
         try {
             const { signed_request, user_id } = req.body;
-            
+
             // In production, verify Meta's signed request
             // const data = parseMetaSignedRequest(signed_request, META_APP_SECRET);
-            
+
             const userId = user_id;
             if (userId) {
                 const tokensBefore = db.oauthTokens.length;
-                db.oauthTokens = db.oauthTokens.filter(t => 
+                db.oauthTokens = db.oauthTokens.filter(t =>
                     !(t.provider === 'meta' && t.userId === userId)
                 );
-                
+
                 if (db.oauthTokens.length < tokensBefore) {
                     saveDb(db);
                     console.log('Meta token deauthorized via webhook for user:', userId);
                     auditLog('OAUTH_REVOKED', userId, { provider: 'meta', via: 'webhook' });
                 }
             }
-            
+
             res.status(200).json({ success: true });
         } catch (e) {
             console.error('Meta deauth webhook error:', e);
@@ -728,12 +750,12 @@ app.post('/api/oauth/disconnect',
         try {
             const { provider } = req.body;
             const userId = req.user.id;
-            
+
             const tokensBefore = db.oauthTokens.length;
-            db.oauthTokens = db.oauthTokens.filter(t => 
+            db.oauthTokens = db.oauthTokens.filter(t =>
                 !(t.userId === userId && t.provider === provider)
             );
-            
+
             if (db.oauthTokens.length < tokensBefore) {
                 saveDb(db);
                 auditLog('OAUTH_DISCONNECTED', userId, { provider });
@@ -794,7 +816,7 @@ const refreshXToken = async (userId) => {
         if (!oauthData) return null;
 
         const tokens = JSON.parse(oauthData);
-        
+
         // X tokens don't have expiry_date in response, but typically last 2 hours
         // Attempt refresh if refresh_token exists
         if (!tokens.refresh_token) {
@@ -866,17 +888,17 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
         const oauthData = decryptText(entry.data);
         if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
         const { access_token } = JSON.parse(oauthData);
-        
+
         // Calculate date range for analytics
         const end = new Date();
         let start = new Date();
         if (range === 'daily') start.setDate(end.getDate() - 1);
         else if (range === 'monthly') start.setDate(end.getDate() - 30);
         else start.setDate(end.getDate() - 7);
-        
+
         const startMs = start.getTime();
         const endMs = end.getTime();
-        
+
         // Fetch organization follower statistics
         const followerStatsUrl = `https://api.linkedin.com/v2/organizationalEntityFollowerStatistics?q=organizationalEntity&organizationalEntity=${encodeURIComponent(organizationId)}`;
         const followerResp = await fetch(followerStatsUrl, {
@@ -885,7 +907,7 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
                 'LinkedIn-Version': '202312'
             }
         });
-        
+
         // Fetch organization share statistics (posts/engagement)
         const shareStatsUrl = `https://api.linkedin.com/v2/organizationalEntityShareStatistics?q=organizationalEntity&organizationalEntity=${encodeURIComponent(organizationId)}&timeIntervals.timeGranularityType=DAY&timeIntervals.timeRange.start=${startMs}&timeIntervals.timeRange.end=${endMs}`;
         const shareResp = await fetch(shareStatsUrl, {
@@ -894,14 +916,14 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
                 'LinkedIn-Version': '202312'
             }
         });
-        
+
         const metrics = {
             organizationId,
             dateRange: range,
             followers: { total: 0, organic: 0, paid: 0 },
             engagement: { impressions: 0, clicks: 0, likes: 0, comments: 0, shares: 0, engagement_rate: 0 }
         };
-        
+
         // Parse follower stats
         if (followerResp.ok) {
             const followerData = await followerResp.json();
@@ -912,13 +934,13 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
                 metrics.followers.paid = stats.followerCounts?.paidFollowerCount || 0;
             }
         }
-        
+
         // Parse share/engagement stats
         if (shareResp.ok) {
             const shareData = await shareResp.json();
             if (shareData.elements && shareData.elements.length > 0) {
                 let totalImpressions = 0, totalClicks = 0, totalLikes = 0, totalComments = 0, totalShares = 0;
-                
+
                 shareData.elements.forEach(elem => {
                     if (elem.totalShareStatistics) {
                         const stats = elem.totalShareStatistics;
@@ -929,20 +951,20 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
                         totalShares += stats.shareCount || 0;
                     }
                 });
-                
+
                 metrics.engagement.impressions = totalImpressions;
                 metrics.engagement.clicks = totalClicks;
                 metrics.engagement.likes = totalLikes;
                 metrics.engagement.comments = totalComments;
                 metrics.engagement.shares = totalShares;
-                
+
                 const totalEngagement = totalLikes + totalComments + totalShares + totalClicks;
-                metrics.engagement.engagement_rate = totalImpressions > 0 
-                    ? ((totalEngagement / totalImpressions) * 100).toFixed(2) 
+                metrics.engagement.engagement_rate = totalImpressions > 0
+                    ? ((totalEngagement / totalImpressions) * 100).toFixed(2)
                     : 0;
             }
         }
-        
+
         res.json(metrics);
     } catch (e) {
         console.error('LinkedIn metrics error', e);
@@ -950,212 +972,212 @@ app.get('/api/linkedin/metrics', requireAuth, async (req, res) => {
     }
 });
 
-    // ---------------- GOOGLE ADS ----------------
-    // List accessible Google Ads customers for the linked account
-    app.get('/api/google/ads/customers', requireAuth, async (req, res) => {
-        try {
-            const devToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
-            if (!devToken) return res.status(500).json({ message: 'Google Ads developer token not configured' });
-            const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('ads'));
-            if (!entry) return res.status(400).json({ message: 'Google Ads not linked' });
-            const oauthData = decryptText(entry.data);
-            if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+// ---------------- GOOGLE ADS ----------------
+// List accessible Google Ads customers for the linked account
+app.get('/api/google/ads/customers', requireAuth, async (req, res) => {
+    try {
+        const devToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
+        if (!devToken) return res.status(500).json({ message: 'Google Ads developer token not configured' });
+        const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('ads'));
+        if (!entry) return res.status(400).json({ message: 'Google Ads not linked' });
+        const oauthData = decryptText(entry.data);
+        if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
 
-            const { access_token } = JSON.parse(oauthData);
-            const resp = await fetch('https://googleads.googleapis.com/v14/customers:listAccessibleCustomers', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'developer-token': devToken
-                }
-            });
-            if (!resp.ok) {
-                const err = await resp.text();
-                return res.status(resp.status).json({ message: 'Failed to list customers', error: err });
+        const { access_token } = JSON.parse(oauthData);
+        const resp = await fetch('https://googleads.googleapis.com/v14/customers:listAccessibleCustomers', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'developer-token': devToken
             }
-            const data = await resp.json();
-            res.json(data);
-        } catch (e) {
-            console.error('Ads customers error', e);
-            res.status(500).json({ message: 'Failed to list Google Ads customers' });
+        });
+        if (!resp.ok) {
+            const err = await resp.text();
+            return res.status(resp.status).json({ message: 'Failed to list customers', error: err });
         }
-    });
+        const data = await resp.json();
+        res.json(data);
+    } catch (e) {
+        console.error('Ads customers error', e);
+        res.status(500).json({ message: 'Failed to list Google Ads customers' });
+    }
+});
 
-    // Fetch simple Google Ads metrics for a customer using GAQL via googleAds:search
-    app.get('/api/google/ads/metrics', requireAuth, async (req, res) => {
-        try {
-            const devToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
-            if (!devToken) return res.status(500).json({ message: 'Google Ads developer token not configured' });
-            const { customerId, dateRange } = req.query;
-            if (!customerId) return res.status(400).json({ message: 'customerId is required' });
-            const range = (dateRange || 'weekly').toString();
-            const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('ads'));
-            if (!entry) return res.status(400).json({ message: 'Google Ads not linked' });
-            const oauthData = decryptText(entry.data);
-            if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+// Fetch simple Google Ads metrics for a customer using GAQL via googleAds:search
+app.get('/api/google/ads/metrics', requireAuth, async (req, res) => {
+    try {
+        const devToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
+        if (!devToken) return res.status(500).json({ message: 'Google Ads developer token not configured' });
+        const { customerId, dateRange } = req.query;
+        if (!customerId) return res.status(400).json({ message: 'customerId is required' });
+        const range = (dateRange || 'weekly').toString();
+        const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('ads'));
+        if (!entry) return res.status(400).json({ message: 'Google Ads not linked' });
+        const oauthData = decryptText(entry.data);
+        if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
 
-            const { access_token } = JSON.parse(oauthData);
-            const during = range === 'daily' ? 'YESTERDAY' : range === 'monthly' ? 'LAST_30_DAYS' : 'LAST_7_DAYS';
-            const query = `SELECT metrics.impressions, metrics.clicks, metrics.average_cpc, metrics.conversions, metrics.cost_micros FROM customer WHERE segments.date DURING ${during}`;
-            const url = `https://googleads.googleapis.com/v14/customers/${encodeURIComponent(customerId.toString())}/googleAds:search`;
-            const resp = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'developer-token': devToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query })
-            });
-            if (!resp.ok) {
-                const err = await resp.text();
-                return res.status(resp.status).json({ message: 'Failed to fetch Ads metrics', error: err });
+        const { access_token } = JSON.parse(oauthData);
+        const during = range === 'daily' ? 'YESTERDAY' : range === 'monthly' ? 'LAST_30_DAYS' : 'LAST_7_DAYS';
+        const query = `SELECT metrics.impressions, metrics.clicks, metrics.average_cpc, metrics.conversions, metrics.cost_micros FROM customer WHERE segments.date DURING ${during}`;
+        const url = `https://googleads.googleapis.com/v14/customers/${encodeURIComponent(customerId.toString())}/googleAds:search`;
+        const resp = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'developer-token': devToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query })
+        });
+        if (!resp.ok) {
+            const err = await resp.text();
+            return res.status(resp.status).json({ message: 'Failed to fetch Ads metrics', error: err });
+        }
+        const data = await resp.json();
+        res.json(data);
+    } catch (e) {
+        console.error('Ads metrics error', e);
+        res.status(500).json({ message: 'Failed to fetch Google Ads metrics' });
+    }
+});
+
+// ---------- GOOGLE MY BUSINESS (GMB) ----------
+// List Google My Business accounts for the linked Google account
+app.get('/api/google/gmb/accounts', requireAuth, async (req, res) => {
+    try {
+        const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
+        if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
+        const oauthData = decryptText(entry.data);
+        if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+
+        const { access_token } = JSON.parse(oauthData);
+
+        // Fetch accounts from Google Business Profile API
+        const resp = await fetch('https://mybusinessbusinessinformation.googleapis.com/v1/accounts', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
             }
-            const data = await resp.json();
-            res.json(data);
-        } catch (e) {
-            console.error('Ads metrics error', e);
-            res.status(500).json({ message: 'Failed to fetch Google Ads metrics' });
+        });
+
+        if (!resp.ok) {
+            const err = await resp.text();
+            return res.status(resp.status).json({ message: 'Failed to list GMB accounts', error: err });
         }
-    });
 
-    // ---------- GOOGLE MY BUSINESS (GMB) ----------
-    // List Google My Business accounts for the linked Google account
-    app.get('/api/google/gmb/accounts', requireAuth, async (req, res) => {
-        try {
-            const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
-            if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
-            const oauthData = decryptText(entry.data);
-            if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+        const data = await resp.json();
+        res.json(data);
+    } catch (e) {
+        console.error('GMB accounts error', e);
+        res.status(500).json({ message: 'Failed to fetch Google My Business accounts', error: e.message });
+    }
+});
 
-            const { access_token } = JSON.parse(oauthData);
-            
-            // Fetch accounts from Google Business Profile API
-            const resp = await fetch('https://mybusinessbusinessinformation.googleapis.com/v1/accounts', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (!resp.ok) {
-                const err = await resp.text();
-                return res.status(resp.status).json({ message: 'Failed to list GMB accounts', error: err });
+// List locations for a specific GMB account
+app.get('/api/google/gmb/locations', requireAuth, async (req, res) => {
+    try {
+        const { accountId } = req.query;
+        if (!accountId) return res.status(400).json({ message: 'accountId is required' });
+
+        const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
+        if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
+        const oauthData = decryptText(entry.data);
+        if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+
+        const { access_token } = JSON.parse(oauthData);
+
+        // Fetch locations for the account
+        const resp = await fetch(`https://mybusinessbusinessinformation.googleapis.com/v1/accounts/${encodeURIComponent(accountId.toString())}/locations`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
             }
-            
-            const data = await resp.json();
-            res.json(data);
-        } catch (e) {
-            console.error('GMB accounts error', e);
-            res.status(500).json({ message: 'Failed to fetch Google My Business accounts', error: e.message });
+        });
+
+        if (!resp.ok) {
+            const err = await resp.text();
+            return res.status(resp.status).json({ message: 'Failed to list locations', error: err });
         }
-    });
 
-    // List locations for a specific GMB account
-    app.get('/api/google/gmb/locations', requireAuth, async (req, res) => {
-        try {
-            const { accountId } = req.query;
-            if (!accountId) return res.status(400).json({ message: 'accountId is required' });
-            
-            const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
-            if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
-            const oauthData = decryptText(entry.data);
-            if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+        const data = await resp.json();
+        res.json(data);
+    } catch (e) {
+        console.error('GMB locations error', e);
+        res.status(500).json({ message: 'Failed to fetch GMB locations', error: e.message });
+    }
+});
 
-            const { access_token } = JSON.parse(oauthData);
-            
-            // Fetch locations for the account
-            const resp = await fetch(`https://mybusinessbusinessinformation.googleapis.com/v1/accounts/${encodeURIComponent(accountId.toString())}/locations`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (!resp.ok) {
-                const err = await resp.text();
-                return res.status(resp.status).json({ message: 'Failed to list locations', error: err });
-            }
-            
-            const data = await resp.json();
-            res.json(data);
-        } catch (e) {
-            console.error('GMB locations error', e);
-            res.status(500).json({ message: 'Failed to fetch GMB locations', error: e.message });
-        }
-    });
+// Fetch GMB insights (profile views, searches, actions) for a location
+app.get('/api/google/gmb/insights', requireAuth, async (req, res) => {
+    try {
+        const { locationId, dateRange } = req.query;
+        if (!locationId) return res.status(400).json({ message: 'locationId is required' });
 
-    // Fetch GMB insights (profile views, searches, actions) for a location
-    app.get('/api/google/gmb/insights', requireAuth, async (req, res) => {
-        try {
-            const { locationId, dateRange } = req.query;
-            if (!locationId) return res.status(400).json({ message: 'locationId is required' });
-            
-            const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
-            if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
-            const oauthData = decryptText(entry.data);
-            if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
+        const entry = db.oauthTokens.find(t => t.userId === req.user.id && t.provider === 'google' && t.scope.includes('business'));
+        if (!entry) return res.status(400).json({ message: 'Google My Business not linked' });
+        const oauthData = decryptText(entry.data);
+        if (!oauthData) return res.status(500).json({ message: 'Failed to decrypt token' });
 
-            const { access_token } = JSON.parse(oauthData);
-            const range = (dateRange || 'LAST_30_DAYS').toString();
-            
-            // Calculate date range for insights query
-            const endDate = new Date();
-            const startDate = new Date();
-            if (range === 'LAST_7_DAYS') startDate.setDate(startDate.getDate() - 7);
-            else if (range === 'LAST_30_DAYS') startDate.setDate(startDate.getDate() - 30);
-            else if (range === 'LAST_90_DAYS') startDate.setDate(startDate.getDate() - 90);
-            
-            const startDateStr = startDate.toISOString().split('T')[0];
-            const endDateStr = endDate.toISOString().split('T')[0];
-            
-            // Fetch insights using Google Insights API
-            const resp = await fetch(`https://mybusinessinsights.googleapis.com/v1/${locationId}/insights:reportInsights`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    locationFilter: { locations: [locationId] },
-                    basicRequest: {
-                        metricRequests: [
-                            { metric: 'QUERIES_DIRECT' },
-                            { metric: 'QUERIES_INDIRECT' },
-                            { metric: 'VIEWS_MAPS' },
-                            { metric: 'VIEWS_WEBSITE' },
-                            { metric: 'ACTIONS_PHONE' },
-                            { metric: 'ACTIONS_WEBSITE' },
-                            { metric: 'ACTIONS_DIRECTIONS' }
-                        ],
-                        timeRange: {
-                            startTime: { year: startDate.getFullYear(), month: startDate.getMonth() + 1, day: startDate.getDate() },
-                            endTime: { year: endDate.getFullYear(), month: endDate.getMonth() + 1, day: endDate.getDate() }
-                        }
+        const { access_token } = JSON.parse(oauthData);
+        const range = (dateRange || 'LAST_30_DAYS').toString();
+
+        // Calculate date range for insights query
+        const endDate = new Date();
+        const startDate = new Date();
+        if (range === 'LAST_7_DAYS') startDate.setDate(startDate.getDate() - 7);
+        else if (range === 'LAST_30_DAYS') startDate.setDate(startDate.getDate() - 30);
+        else if (range === 'LAST_90_DAYS') startDate.setDate(startDate.getDate() - 90);
+
+        const startDateStr = startDate.toISOString().split('T')[0];
+        const endDateStr = endDate.toISOString().split('T')[0];
+
+        // Fetch insights using Google Insights API
+        const resp = await fetch(`https://mybusinessinsights.googleapis.com/v1/${locationId}/insights:reportInsights`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                locationFilter: { locations: [locationId] },
+                basicRequest: {
+                    metricRequests: [
+                        { metric: 'QUERIES_DIRECT' },
+                        { metric: 'QUERIES_INDIRECT' },
+                        { metric: 'VIEWS_MAPS' },
+                        { metric: 'VIEWS_WEBSITE' },
+                        { metric: 'ACTIONS_PHONE' },
+                        { metric: 'ACTIONS_WEBSITE' },
+                        { metric: 'ACTIONS_DIRECTIONS' }
+                    ],
+                    timeRange: {
+                        startTime: { year: startDate.getFullYear(), month: startDate.getMonth() + 1, day: startDate.getDate() },
+                        endTime: { year: endDate.getFullYear(), month: endDate.getMonth() + 1, day: endDate.getDate() }
                     }
-                })
-            });
-            
-            if (!resp.ok) {
-                const err = await resp.text();
-                return res.status(resp.status).json({ message: 'Failed to fetch insights', error: err });
-            }
-            
-            const data = await resp.json();
-            res.json({
-                locationId,
-                dateRange: range,
-                startDate: startDateStr,
-                endDate: endDateStr,
-                metrics: data
-            });
-        } catch (e) {
-            console.error('GMB insights error', e);
-            res.status(500).json({ message: 'Failed to fetch GMB insights', error: e.message });
+                }
+            })
+        });
+
+        if (!resp.ok) {
+            const err = await resp.text();
+            return res.status(resp.status).json({ message: 'Failed to fetch insights', error: err });
         }
-    });
+
+        const data = await resp.json();
+        res.json({
+            locationId,
+            dateRange: range,
+            startDate: startDateStr,
+            endDate: endDateStr,
+            metrics: data
+        });
+    } catch (e) {
+        console.error('GMB insights error', e);
+        res.status(500).json({ message: 'Failed to fetch GMB insights', error: e.message });
+    }
+});
 
 // --- CLIENT INVITES (stubs) ---
 app.post('/api/clients/invite', requireAuth, requireRole('ADMIN'), apiLimiter, [
@@ -1178,7 +1200,7 @@ app.post('/api/clients/invite', requireAuth, requireRole('ADMIN'), apiLimiter, [
             role: 'ADMIN', // client admin has ADMIN role; super admin identified by id
             companyName,
             isTrial: true,
-            trialEndsAt: new Date(Date.now() + 14*24*60*60*1000).toISOString(),
+            trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
             subscription: 'TRIAL_PREMIUM',
             features: {
                 dashboardAccess: true,
@@ -1204,196 +1226,196 @@ app.post('/api/clients/invite', requireAuth, requireRole('ADMIN'), apiLimiter, [
 
 // --- TRIAL & SUBSCRIPTION CHECK ---
 const checkTrialAndSubscription = (req, res, next) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Authentication required' });
-  }
-  
-  // Super admin always has access
-  if (req.user.role === 'ADMIN' && req.user.id === 'super_admin') {
-    return next();
-  }
-  
-  // Get fresh user data from database
-  const dbUser = db.users.find(u => u.id === req.user.id);
-  if (!dbUser) {
-    return res.status(401).json({ message: 'User not found' });
-  }
-  
-  // Check if user has active subscription
-  const activeSubscription = db.subscriptions.find(s => 
-    s.userId === dbUser.id && 
-    s.status === 'active' && 
-    new Date(s.expiresAt) > new Date()
-  );
-  
-  // Check trial status
-  const isTrialActive = dbUser.isTrial && 
-    dbUser.trialEndsAt && 
-    new Date(dbUser.trialEndsAt) > new Date();
-  
-  // User has access if they have active subscription OR active trial
-  if (activeSubscription || isTrialActive) {
-    // Attach subscription info to request
-    req.user.subscription = activeSubscription;
-    req.user.isTrialActive = isTrialActive;
-    req.user.trialEndsAt = dbUser.trialEndsAt;
-    return next();
-  }
-  
-  // Trial expired and no active subscription
-  return res.status(403).json({ 
-    message: 'Trial period expired. Please subscribe to a package to continue.',
-    requiresSubscription: true,
-    trialExpired: dbUser.isTrial && dbUser.trialEndsAt && new Date(dbUser.trialEndsAt) <= new Date()
-  });
+    if (!req.user) {
+        return res.status(401).json({ message: 'Authentication required' });
+    }
+
+    // Super admin always has access
+    if (req.user.role === 'ADMIN' && req.user.id === 'super_admin') {
+        return next();
+    }
+
+    // Get fresh user data from database
+    const dbUser = db.users.find(u => u.id === req.user.id);
+    if (!dbUser) {
+        return res.status(401).json({ message: 'User not found' });
+    }
+
+    // Check if user has active subscription
+    const activeSubscription = db.subscriptions.find(s =>
+        s.userId === dbUser.id &&
+        s.status === 'active' &&
+        new Date(s.expiresAt) > new Date()
+    );
+
+    // Check trial status
+    const isTrialActive = dbUser.isTrial &&
+        dbUser.trialEndsAt &&
+        new Date(dbUser.trialEndsAt) > new Date();
+
+    // User has access if they have active subscription OR active trial
+    if (activeSubscription || isTrialActive) {
+        // Attach subscription info to request
+        req.user.subscription = activeSubscription;
+        req.user.isTrialActive = isTrialActive;
+        req.user.trialEndsAt = dbUser.trialEndsAt;
+        return next();
+    }
+
+    // Trial expired and no active subscription
+    return res.status(403).json({
+        message: 'Trial period expired. Please subscribe to a package to continue.',
+        requiresSubscription: true,
+        trialExpired: dbUser.isTrial && dbUser.trialEndsAt && new Date(dbUser.trialEndsAt) <= new Date()
+    });
 };
 
 // --- MULTI-TENANT ISOLATION ---
 const requireClientAccess = (req, res, next) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Authentication required' });
-  }
-  
-  // Super admins can access all clients
-  if (req.user.role === 'ADMIN' && req.user.id === 'super_admin') {
-    return next();
-  }
-  
-  // For other users, filter by their company/clientId
-  req.clientFilter = req.user.companyName || req.user.id;
-  next();
+    if (!req.user) {
+        return res.status(401).json({ message: 'Authentication required' });
+    }
+
+    // Super admins can access all clients
+    if (req.user.role === 'ADMIN' && req.user.id === 'super_admin') {
+        return next();
+    }
+
+    // For other users, filter by their company/clientId
+    req.clientFilter = req.user.companyName || req.user.id;
+    next();
 };
 
 // Helper to filter data by client
 const filterByClient = (data, user) => {
-  if (user.role === 'ADMIN' && user.id === 'super_admin') {
-    return data; // Super admin sees all
-  }
-  
-  // Filter by companyName or userId
-  return data.filter(item => 
-    item.companyName === user.companyName || 
-    item.userId === user.id ||
-    item.clientId === user.id
-  );
+    if (user.role === 'ADMIN' && user.id === 'super_admin') {
+        return data; // Super admin sees all
+    }
+
+    // Filter by companyName or userId
+    return data.filter(item =>
+        item.companyName === user.companyName ||
+        item.userId === user.id ||
+        item.clientId === user.id
+    );
 };
 
 // --- AUDIT LOGGING ---
 const auditLog = (action, userId, details = {}) => {
-  const logEntry = {
-    id: 'audit_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-    action,
-    userId,
-    timestamp: new Date().toISOString(),
-    details,
-    ip: details.ip || 'unknown'
-  };
-  
-  db.auditLogs.push(logEntry);
-  
-  // Keep only last 10000 logs
-  if (db.auditLogs.length > 10000) {
-    db.auditLogs = db.auditLogs.slice(-10000);
-  }
-  
-  saveDb(db);
-  return logEntry;
+    const logEntry = {
+        id: 'audit_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        action,
+        userId,
+        timestamp: new Date().toISOString(),
+        details,
+        ip: details.ip || 'unknown'
+    };
+
+    db.auditLogs.push(logEntry);
+
+    // Keep only last 10000 logs
+    if (db.auditLogs.length > 10000) {
+        db.auditLogs = db.auditLogs.slice(-10000);
+    }
+
+    saveDb(db);
+    return logEntry;
 };
 
 // Audit middleware
 const auditMiddleware = (action) => {
-  return (req, res, next) => {
-    if (req.user) {
-      auditLog(action, req.user.id, {
-        method: req.method,
-        path: req.path,
-        ip: req.ip || req.connection.remoteAddress
-      });
-    }
-    next();
-  };
+    return (req, res, next) => {
+        if (req.user) {
+            auditLog(action, req.user.id, {
+                method: req.method,
+                path: req.path,
+                ip: req.ip || req.connection.remoteAddress
+            });
+        }
+        next();
+    };
 };
 
 // --- DATA BACKUP ---
 const createBackup = () => {
-  try {
-    const backupDir = path.join(__dirname, 'backups');
-    if (!fs.existsSync(backupDir)) {
-      fs.mkdirSync(backupDir, { recursive: true });
+    try {
+        const backupDir = path.join(__dirname, 'backups');
+        if (!fs.existsSync(backupDir)) {
+            fs.mkdirSync(backupDir, { recursive: true });
+        }
+
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const backupFile = path.join(backupDir, `db-backup-${timestamp}.json`);
+
+        fs.writeFileSync(backupFile, JSON.stringify(db, null, 2));
+
+        // Keep only last 30 backups
+        const backups = fs.readdirSync(backupDir)
+            .filter(f => f.startsWith('db-backup-'))
+            .map(f => ({
+                name: f,
+                path: path.join(backupDir, f),
+                time: fs.statSync(path.join(backupDir, f)).mtime
+            }))
+            .sort((a, b) => b.time - a.time);
+
+        if (backups.length > 30) {
+            backups.slice(30).forEach(b => {
+                fs.unlinkSync(b.path);
+            });
+        }
+
+        return backupFile;
+    } catch (error) {
+        console.error('Backup failed:', error);
+        return null;
     }
-    
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupFile = path.join(backupDir, `db-backup-${timestamp}.json`);
-    
-    fs.writeFileSync(backupFile, JSON.stringify(db, null, 2));
-    
-    // Keep only last 30 backups
-    const backups = fs.readdirSync(backupDir)
-      .filter(f => f.startsWith('db-backup-'))
-      .map(f => ({
-        name: f,
-        path: path.join(backupDir, f),
-        time: fs.statSync(path.join(backupDir, f)).mtime
-      }))
-      .sort((a, b) => b.time - a.time);
-    
-    if (backups.length > 30) {
-      backups.slice(30).forEach(b => {
-        fs.unlinkSync(b.path);
-      });
-    }
-    
-    return backupFile;
-  } catch (error) {
-    console.error('Backup failed:', error);
-    return null;
-  }
 };
 
 // Auto-backup every 6 hours
 setInterval(() => {
-  createBackup();
-  console.log('Auto-backup completed');
+    createBackup();
+    console.log('Auto-backup completed');
 }, 6 * 60 * 60 * 1000);
 
 // Auto-refresh OAuth tokens (check every hour)
 setInterval(async () => {
-  try {
-    console.log('Starting OAuth token refresh check...');
-    let refreshedCount = 0;
-    
-    // Get all Google OAuth tokens
-    const googleTokens = db.oauthTokens.filter(t => t.provider === 'google');
-    for (const entry of googleTokens) {
-      const oauthData = decryptText(entry.data);
-      if (!oauthData) continue;
-      
-      const tokens = JSON.parse(oauthData);
-      const now = Date.now();
-      const expiryBuffer = 30 * 60 * 1000; // 30 minutes buffer
-      
-      // Refresh if expiring within 30 minutes
-      if (tokens.expiry_date && tokens.expiry_date <= now + expiryBuffer && tokens.refresh_token) {
-        const refreshed = await refreshGoogleToken(entry.userId, entry.scope);
-        if (refreshed) {
-          refreshedCount++;
-          console.log(`Refreshed Google token for user ${entry.userId}`);
+    try {
+        console.log('Starting OAuth token refresh check...');
+        let refreshedCount = 0;
+
+        // Get all Google OAuth tokens
+        const googleTokens = db.oauthTokens.filter(t => t.provider === 'google');
+        for (const entry of googleTokens) {
+            const oauthData = decryptText(entry.data);
+            if (!oauthData) continue;
+
+            const tokens = JSON.parse(oauthData);
+            const now = Date.now();
+            const expiryBuffer = 30 * 60 * 1000; // 30 minutes buffer
+
+            // Refresh if expiring within 30 minutes
+            if (tokens.expiry_date && tokens.expiry_date <= now + expiryBuffer && tokens.refresh_token) {
+                const refreshed = await refreshGoogleToken(entry.userId, entry.scope);
+                if (refreshed) {
+                    refreshedCount++;
+                    console.log(`Refreshed Google token for user ${entry.userId}`);
+                }
+            }
         }
-      }
+
+        if (refreshedCount > 0) {
+            console.log(`OAuth token refresh completed: ${refreshedCount} tokens refreshed`);
+        }
+    } catch (error) {
+        console.error('OAuth token refresh job error:', error);
     }
-    
-    if (refreshedCount > 0) {
-      console.log(`OAuth token refresh completed: ${refreshedCount} tokens refreshed`);
-    }
-  } catch (error) {
-    console.error('OAuth token refresh job error:', error);
-  }
 }, 60 * 60 * 1000); // Run every hour
 
 // --- HEALTH CHECK ---
 app.get('/health', (req, res) => {
-    res.json({ 
-        status: 'ok', 
+    res.json({
+        status: 'ok',
         timestamp: new Date().toISOString(),
         environment: NODE_ENV,
         uptime: process.uptime()
@@ -1413,7 +1435,7 @@ app.get('/api', (req, res) => {
 // --- API ROUTES ---
 
 // Auth: Login
-app.post('/api/auth/login', 
+app.post('/api/auth/login',
     authLimiter,
     [
         body('email').isEmail().normalizeEmail(),
@@ -1521,14 +1543,14 @@ app.post('/api/auth/refresh',
     handleValidationErrors,
     (req, res) => {
         try {
-    const { refreshToken } = req.body;
+            const { refreshToken } = req.body;
 
-    const decoded = verifyToken(refreshToken);
-    if (!decoded || decoded.type !== 'refresh') {
-        return res.status(403).json({ message: 'Invalid refresh token' });
-    }
+            const decoded = verifyToken(refreshToken);
+            if (!decoded || decoded.type !== 'refresh') {
+                return res.status(403).json({ message: 'Invalid refresh token' });
+            }
 
-    // Find user to get latest roles/data
+            // Find user to get latest roles/data
             const user = db.users.find(u => u.id === decoded.id);
             if (!user) {
                 return res.status(403).json({ message: 'User not found' });
@@ -1536,7 +1558,7 @@ app.post('/api/auth/refresh',
 
             const { password: _, ...safeUser } = user;
             const newAccessToken = createToken(safeUser, ACCESS_TOKEN_EXPIRY);
-            
+
             res.json({ token: newAccessToken });
         } catch (error) {
             console.error('Refresh token error:', error);
@@ -1555,16 +1577,16 @@ app.post('/api/auth/password-reset/request',
     async (req, res) => {
         try {
             const { email } = req.body;
-            
+
             // Find user
             const user = db.users.find(u => u.email === email);
-            
+
             // Always return success (security best practice - don't reveal if email exists)
             if (user) {
                 // Generate reset token
                 const resetToken = crypto.randomBytes(32).toString('hex');
                 const expiresAt = new Date(Date.now() + 3600000); // 1 hour
-                
+
                 // Store reset token
                 db.passwordResetTokens = db.passwordResetTokens.filter(t => t.email !== email);
                 db.passwordResetTokens.push({
@@ -1574,14 +1596,14 @@ app.post('/api/auth/password-reset/request',
                     createdAt: new Date().toISOString()
                 });
                 saveDb(db);
-                
+
                 // In production, send email here
                 // For now, log the token (remove in production!)
                 if (NODE_ENV === 'development') {
                     console.log(`Password reset token for ${email}: ${resetToken}`);
                 }
             }
-            
+
             res.json({ message: 'If an account exists, a password reset link has been sent.' });
         } catch (error) {
             console.error('Password reset request error:', error);
@@ -1602,38 +1624,38 @@ app.post('/api/auth/password-reset/confirm',
     async (req, res) => {
         try {
             const { email, token, newPassword } = req.body;
-            
+
             // Find reset token
             const resetToken = db.passwordResetTokens.find(
                 t => t.email === email && t.token === token
             );
-            
+
             if (!resetToken) {
                 return res.status(400).json({ message: 'Invalid or expired reset token' });
             }
-            
+
             // Check if token expired
             if (new Date(resetToken.expiresAt) < new Date()) {
                 db.passwordResetTokens = db.passwordResetTokens.filter(t => t.token !== token);
                 saveDb(db);
                 return res.status(400).json({ message: 'Reset token has expired' });
             }
-            
+
             // Find user
             const user = db.users.find(u => u.email === email);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            
+
             // Update password
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             user.password = hashedPassword;
             user.updatedAt = new Date().toISOString();
-            
+
             // Remove used token
             db.passwordResetTokens = db.passwordResetTokens.filter(t => t.token !== token);
             saveDb(db);
-            
+
             res.json({ message: 'Password reset successfully' });
         } catch (error) {
             console.error('Password reset confirm error:', error);
@@ -1655,25 +1677,25 @@ app.post('/api/auth/change-password',
         try {
             const { currentPassword, newPassword } = req.body;
             const userId = req.user.id;
-            
+
             // Find user
             const user = db.users.find(u => u.id === userId);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            
+
             // Verify current password
             const isValidPassword = await bcrypt.compare(currentPassword, user.password);
             if (!isValidPassword) {
                 return res.status(401).json({ message: 'Current password is incorrect' });
             }
-            
+
             // Update password
             const hashedPassword = await bcrypt.hash(newPassword, 10);
             user.password = hashedPassword;
             user.updatedAt = new Date().toISOString();
             saveDb(db);
-            
+
             res.json({ message: 'Password changed successfully' });
         } catch (error) {
             console.error('Change password error:', error);
@@ -1695,22 +1717,22 @@ app.put('/api/auth/profile',
         try {
             const userId = req.user.id;
             const updates = req.body;
-            
+
             const user = db.users.find(u => u.id === userId);
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            
+
             // Update allowed fields
             if (updates.name) user.name = updates.name;
             if (updates.companyName !== undefined) user.companyName = updates.companyName;
             if (updates.logoUrl !== undefined) user.logoUrl = updates.logoUrl;
             if (updates.brandColor !== undefined) user.brandColor = updates.brandColor;
             user.updatedAt = new Date().toISOString();
-            
+
             saveDb(db);
 
-    const { password: _, ...safeUser } = user;
+            const { password: _, ...safeUser } = user;
             res.json({ user: safeUser, message: 'Profile updated successfully' });
         } catch (error) {
             console.error('Update profile error:', error);
@@ -1728,20 +1750,20 @@ app.post('/api/auth/2fa/setup',
         try {
             const userId = req.user.id;
             const user = db.users.find(u => u.id === userId);
-            
+
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            
+
             // Generate secret (in production, use speakeasy)
             const secret = crypto.randomBytes(20).toString('base64');
             user.twoFactorSecret = secret;
             user.twoFactorEnabled = false; // Not enabled until verified
             saveDb(db);
-            
+
             // In production, generate QR code with speakeasy
             // For now, return secret (remove in production!)
-            res.json({ 
+            res.json({
                 secret,
                 qrCode: `otpauth://totp/WebProMetrics:${user.email}?secret=${secret}&issuer=WebProMetrics`
             });
@@ -1765,11 +1787,11 @@ app.post('/api/auth/2fa/verify',
             const { code } = req.body;
             const userId = req.user.id;
             const user = db.users.find(u => u.id === userId);
-            
+
             if (!user || !user.twoFactorSecret) {
                 return res.status(400).json({ message: '2FA not set up' });
             }
-            
+
             // In production, verify with speakeasy.totp.verify()
             // For now, accept any 6-digit code (remove in production!)
             if (code.length === 6 && /^\d+$/.test(code)) {
@@ -1799,11 +1821,11 @@ app.post('/api/auth/2fa/disable',
             const { code } = req.body;
             const userId = req.user.id;
             const user = db.users.find(u => u.id === userId);
-            
+
             if (!user || !user.twoFactorEnabled) {
                 return res.status(400).json({ message: '2FA not enabled' });
             }
-            
+
             // Verify code before disabling
             // In production, use speakeasy.totp.verify()
             if (code.length === 6 && /^\d+$/.test(code)) {
@@ -1857,8 +1879,8 @@ app.get('/api/clients', requireAuthAndAccess, requireClientAccess, apiLimiter, a
     }
 });
 
-app.post('/api/clients', 
-    requireAuthAndAccess, 
+app.post('/api/clients',
+    requireAuthAndAccess,
     requireRole('ADMIN', 'USER'),
     apiLimiter,
     [
@@ -1868,7 +1890,7 @@ app.post('/api/clients',
     handleValidationErrors,
     async (req, res) => {
         try {
-            const base = { 
+            const base = {
                 name: req.body.name,
                 website: req.body.website || '',
                 status: req.body.status || 'Active',
@@ -1930,8 +1952,8 @@ app.get('/api/reports', requireAuthAndAccess, requireClientAccess, apiLimiter, a
     }
 });
 
-app.post('/api/reports', 
-    requireAuthAndAccess, 
+app.post('/api/reports',
+    requireAuthAndAccess,
     requireClientAccess,
     apiLimiter,
     [
@@ -1968,8 +1990,8 @@ app.post('/api/reports',
 );
 
 // Report Export: PDF
-app.get('/api/reports/:id/export/pdf', 
-    requireAuthAndAccess, 
+app.get('/api/reports/:id/export/pdf',
+    requireAuthAndAccess,
     requireClientAccess,
     apiLimiter,
     [param('id').notEmpty()],
@@ -1978,11 +2000,11 @@ app.get('/api/reports/:id/export/pdf',
         try {
             const { id } = req.params;
             const report = db.reports.find(r => r.id === id);
-            
+
             if (!report) {
                 return res.status(404).json({ message: 'Report not found' });
             }
-            
+
             // Multi-tenant check
             if (req.user.role !== 'ADMIN' && req.user.id !== 'super_admin') {
                 const filtered = filterByClient([report], req.user);
@@ -1990,13 +2012,13 @@ app.get('/api/reports/:id/export/pdf',
                     return res.status(403).json({ message: 'Access denied' });
                 }
             }
-            
+
             // Simple PDF generation (install jspdf for full functionality)
             const pdfContent = `Report: ${report.name || report.title || 'Report'}\n` +
-                             `Client: ${report.clientName || 'N/A'}\n` +
-                             `Date: ${report.date || 'N/A'}\n` +
-                             `Status: ${report.status || 'N/A'}\n`;
-            
+                `Client: ${report.clientName || 'N/A'}\n` +
+                `Date: ${report.date || 'N/A'}\n` +
+                `Status: ${report.status || 'N/A'}\n`;
+
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', `attachment; filename="report-${id}.pdf"`);
             // For now, return text. Install jspdf for proper PDF generation
@@ -2009,8 +2031,8 @@ app.get('/api/reports/:id/export/pdf',
 );
 
 // Report Export: CSV
-app.get('/api/reports/:id/export/csv', 
-    requireAuthAndAccess, 
+app.get('/api/reports/:id/export/csv',
+    requireAuthAndAccess,
     requireClientAccess,
     apiLimiter,
     [param('id').notEmpty()],
@@ -2019,11 +2041,11 @@ app.get('/api/reports/:id/export/csv',
         try {
             const { id } = req.params;
             const report = db.reports.find(r => r.id === id);
-            
+
             if (!report) {
                 return res.status(404).json({ message: 'Report not found' });
             }
-            
+
             // Multi-tenant check
             if (req.user.role !== 'ADMIN' && req.user.id !== 'super_admin') {
                 const filtered = filterByClient([report], req.user);
@@ -2031,11 +2053,11 @@ app.get('/api/reports/:id/export/csv',
                     return res.status(403).json({ message: 'Access denied' });
                 }
             }
-            
+
             // Create CSV
             let csv = 'Report Name,Client,Date,Status,Platform\n';
             csv += `"${report.name || report.title || 'Report'}","${report.clientName || 'N/A'}","${report.date || 'N/A'}","${report.status || 'N/A'}","${report.platform || 'N/A'}"\n`;
-            
+
             res.setHeader('Content-Type', 'text/csv');
             res.setHeader('Content-Disposition', `attachment; filename="report-${id}.csv"`);
             res.send(csv);
@@ -2061,8 +2083,8 @@ app.get('/api/templates', requireAuthAndAccess, apiLimiter, async (req, res) => 
     }
 });
 
-app.post('/api/templates', 
-    requireAuthAndAccess, 
+app.post('/api/templates',
+    requireAuthAndAccess,
     apiLimiter,
     [
         body('name').trim().notEmpty().withMessage('Template name is required'),
@@ -2093,8 +2115,8 @@ app.post('/api/templates',
     }
 );
 
-app.delete('/api/templates/:id', 
-    requireAuth, 
+app.delete('/api/templates/:id',
+    requireAuth,
     apiLimiter,
     [param('id').notEmpty()],
     handleValidationErrors,
@@ -2120,7 +2142,7 @@ app.delete('/api/templates/:id',
 // Packages
 app.get('/api/packages', apiLimiter, (req, res) => {
     try {
-    res.json(db.packages);
+        res.json(db.packages);
     } catch (error) {
         console.error('Get packages error:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -2156,7 +2178,7 @@ app.post('/api/subscriptions',
     (req, res) => {
         try {
             const { packageId, paymentMethod } = req.body;
-            
+
             // Find package
             const pkg = db.packages.find(p => p.id === packageId);
             if (!pkg) {
@@ -2164,14 +2186,14 @@ app.post('/api/subscriptions',
             }
 
             // Check if user already has active subscription
-            const existingSubscription = db.subscriptions.find(s => 
-                s.userId === req.user.id && 
-                s.status === 'active' && 
+            const existingSubscription = db.subscriptions.find(s =>
+                s.userId === req.user.id &&
+                s.status === 'active' &&
                 new Date(s.expiresAt) > new Date()
             );
 
             if (existingSubscription) {
-                return res.status(400).json({ 
+                return res.status(400).json({
                     message: 'You already have an active subscription',
                     subscription: existingSubscription
                 });
@@ -2181,7 +2203,7 @@ app.post('/api/subscriptions',
             const now = new Date();
             const startDate = now.toISOString();
             let expiresAt;
-            
+
             // Determine interval (monthly, yearly, etc.)
             const interval = pkg.interval || 'Monthly';
             if (interval.toLowerCase().includes('month')) {
@@ -2208,7 +2230,7 @@ app.post('/api/subscriptions',
             };
 
             db.subscriptions.push(newSubscription);
-            
+
             // If payment method provided, mark as pending (will be activated after payment)
             // Otherwise, activate immediately and end trial
             if (!paymentMethod || paymentMethod === 'bank') {
@@ -2239,7 +2261,7 @@ app.post('/api/subscriptions/:id/activate',
         try {
             const { id } = req.params;
             const subscription = db.subscriptions.find(s => s.id === id && s.userId === req.user.id);
-            
+
             if (!subscription) {
                 return res.status(404).json({ message: 'Subscription not found' });
             }
@@ -2265,8 +2287,8 @@ app.post('/api/subscriptions/:id/activate',
     }
 );
 
-app.post('/api/packages', 
-    requireAuth, 
+app.post('/api/packages',
+    requireAuth,
     apiLimiter,
     [
         body('name').trim().notEmpty().withMessage('Package name is required'),
@@ -2275,13 +2297,13 @@ app.post('/api/packages',
     handleValidationErrors,
     (req, res) => {
         try {
-            const newPkg = { 
-                ...req.body, 
+            const newPkg = {
+                ...req.body,
                 id: 'pkg_' + Date.now(),
                 createdAt: new Date().toISOString()
             };
-    db.packages.push(newPkg);
-    saveDb(db);
+            db.packages.push(newPkg);
+            saveDb(db);
             res.status(201).json(db.packages);
         } catch (error) {
             console.error('Create package error:', error);
@@ -2290,16 +2312,16 @@ app.post('/api/packages',
     }
 );
 
-app.delete('/api/packages/:id', 
-    requireAuth, 
+app.delete('/api/packages/:id',
+    requireAuth,
     apiLimiter,
     [param('id').notEmpty()],
     handleValidationErrors,
     (req, res) => {
         try {
-    db.packages = db.packages.filter(p => p.id !== req.params.id);
-    saveDb(db);
-    res.json(db.packages);
+            db.packages = db.packages.filter(p => p.id !== req.params.id);
+            saveDb(db);
+            res.json(db.packages);
         } catch (error) {
             console.error('Delete package error:', error);
             res.status(500).json({ message: 'Internal server error' });
@@ -2341,8 +2363,8 @@ app.get('/api/integrations', requireAuthAndAccess, apiLimiter, async (req, res) 
     }
 });
 
-app.post('/api/integrations/:id/toggle', 
-    requireAuth, 
+app.post('/api/integrations/:id/toggle',
+    requireAuth,
     apiLimiter,
     [param('id').notEmpty()],
     handleValidationErrors,
@@ -2370,8 +2392,8 @@ app.post('/api/integrations/:id/toggle',
             db.integrations = db.integrations.map(int => {
                 if (int.id === id) {
                     const isConnected = int.status === 'Connected';
-                    return { 
-                        ...int, 
+                    return {
+                        ...int,
                         status: isConnected ? 'Disconnected' : 'Connected',
                         lastSync: isConnected ? undefined : 'Just now'
                     };
@@ -2402,8 +2424,8 @@ app.get('/api/invoices', requireAuthAndAccess, apiLimiter, async (req, res) => {
     }
 });
 
-app.post('/api/invoices', 
-    requireAuth, 
+app.post('/api/invoices',
+    requireAuth,
     apiLimiter,
     [
         body('clientId').notEmpty().withMessage('Client ID is required'),
@@ -2437,8 +2459,8 @@ app.post('/api/invoices',
     }
 );
 
-app.post('/api/invoices/:id/pay', 
-    requireAuth, 
+app.post('/api/invoices/:id/pay',
+    requireAuth,
     apiLimiter,
     [param('id').notEmpty()],
     handleValidationErrors,
@@ -2465,33 +2487,33 @@ app.post('/api/invoices/:id/pay',
 
 // Initialize payment configurations
 if (!db.paymentConfig) {
-  db.paymentConfig = {
-    stripe: {
-      enabled: false,
-      publishableKey: '',
-      secretKey: '',
-      webhookSecret: ''
-    },
-    paypal: {
-      enabled: false,
-      clientId: '',
-      clientSecret: '',
-      mode: 'sandbox' // or 'live'
-    },
-    bankAccount: {
-      accountName: '',
-      accountNumber: '',
-      bankName: '',
-      swiftCode: '',
-      routingNumber: ''
-    }
-  };
-  saveDb(db);
+    db.paymentConfig = {
+        stripe: {
+            enabled: false,
+            publishableKey: '',
+            secretKey: '',
+            webhookSecret: ''
+        },
+        paypal: {
+            enabled: false,
+            clientId: '',
+            clientSecret: '',
+            mode: 'sandbox' // or 'live'
+        },
+        bankAccount: {
+            accountName: '',
+            accountNumber: '',
+            bankName: '',
+            swiftCode: '',
+            routingNumber: ''
+        }
+    };
+    saveDb(db);
 }
 
 // Initialize payment transactions
 if (!db.paymentTransactions) {
-  db.paymentTransactions = [];
+    db.paymentTransactions = [];
 }
 
 // Get payment configuration (Admin only)
@@ -2553,7 +2575,7 @@ app.put('/api/payments/config',
                     ...req.body.bankAccount
                 };
             }
-            
+
             saveDb(db);
             auditLog('PAYMENT_CONFIG_UPDATED', req.user.id);
             res.json({ message: 'Payment configuration updated successfully' });
@@ -2578,17 +2600,17 @@ app.post('/api/payments/process',
     async (req, res) => {
         try {
             const { invoiceId, amount, cardDetails } = req.body;
-            
+
             // Find invoice
             const invoice = db.invoices.find(inv => inv.id === invoiceId);
             if (!invoice) {
                 return res.status(404).json({ message: 'Invoice not found' });
             }
-            
+
             if (invoice.amount !== amount) {
                 return res.status(400).json({ message: 'Amount mismatch' });
             }
-            
+
             // Check if Stripe is configured
             if (!db.paymentConfig.stripe.enabled || !db.paymentConfig.stripe.secretKey) {
                 // In production, you would use Stripe SDK here
@@ -2598,26 +2620,26 @@ app.post('/api/payments/process',
                     invoiceId,
                     amount,
                     method: 'card',
-                    cardType: cardDetails.number.startsWith('4') ? 'Visa' : 
-                              cardDetails.number.startsWith('5') ? 'Mastercard' : 'Card',
+                    cardType: cardDetails.number.startsWith('4') ? 'Visa' :
+                        cardDetails.number.startsWith('5') ? 'Mastercard' : 'Card',
                     status: 'completed',
                     userId: req.user.id,
                     createdAt: new Date().toISOString(),
                     // In production, store Stripe payment intent ID
                     paymentIntentId: 'pi_mock_' + Date.now()
                 };
-                
+
                 db.paymentTransactions.push(transaction);
-                
+
                 // Update invoice
                 invoice.status = 'Paid';
                 invoice.paidAt = new Date().toISOString();
                 invoice.paymentMethod = 'card';
                 invoice.transactionId = transaction.id;
-                
+
                 saveDb(db);
                 auditLog('PAYMENT_PROCESSED', req.user.id, { invoiceId, method: 'card', amount });
-                
+
                 res.json({
                     success: true,
                     transactionId: transaction.id,
@@ -2648,34 +2670,34 @@ app.post('/api/payments/paypal/create',
     async (req, res) => {
         try {
             const { invoiceId, amount } = req.body;
-            
+
             // Find invoice
             const invoice = db.invoices.find(inv => inv.id === invoiceId);
             if (!invoice) {
                 return res.status(404).json({ message: 'Invoice not found' });
             }
-            
+
             if (invoice.amount !== amount) {
                 return res.status(400).json({ message: 'Amount mismatch' });
             }
-            
+
             // Check if PayPal is configured
             if (!db.paymentConfig.paypal.enabled || !db.paymentConfig.paypal.clientId) {
-                return res.status(400).json({ 
-                    message: 'PayPal is not configured. Please contact administrator.' 
+                return res.status(400).json({
+                    message: 'PayPal is not configured. Please contact administrator.'
                 });
             }
-            
+
             // TODO: Integrate with PayPal SDK
             // For now, create a mock payment approval URL
             // In production, use PayPal REST API:
             // const paypal = require('@paypal/checkout-server-sdk');
             // const request = new paypal.orders.OrdersCreateRequest();
             // ... create order and return approval URL
-            
+
             const paymentId = 'paypal_' + Date.now();
             const approvalUrl = `https://www.paypal.com/checkoutnow?token=${paymentId}`;
-            
+
             // Store pending payment
             const pendingPayment = {
                 id: paymentId,
@@ -2687,12 +2709,12 @@ app.post('/api/payments/paypal/create',
                 createdAt: new Date().toISOString(),
                 approvalUrl
             };
-            
+
             db.paymentTransactions.push(pendingPayment);
             saveDb(db);
-            
+
             auditLog('PAYPAL_PAYMENT_INITIATED', req.user.id, { invoiceId, amount });
-            
+
             res.json({
                 paymentId,
                 approvalUrl,
@@ -2717,21 +2739,21 @@ app.post('/api/payments/paypal/confirm',
     async (req, res) => {
         try {
             const { paymentId, payerId } = req.body;
-            
+
             // Find pending payment
             const transaction = db.paymentTransactions.find(t => t.id === paymentId);
             if (!transaction) {
                 return res.status(404).json({ message: 'Payment not found' });
             }
-            
+
             // TODO: Verify with PayPal API
             // In production, use PayPal SDK to execute the payment
-            
+
             // Update transaction
             transaction.status = 'completed';
             transaction.payerId = payerId;
             transaction.completedAt = new Date().toISOString();
-            
+
             // Update invoice
             const invoice = db.invoices.find(inv => inv.id === transaction.invoiceId);
             if (invoice) {
@@ -2739,14 +2761,14 @@ app.post('/api/payments/paypal/confirm',
                 invoice.paidAt = new Date().toISOString();
                 invoice.paymentMethod = 'paypal';
                 invoice.transactionId = transaction.id;
-                
+
                 // If invoice has a subscriptionId, activate the subscription
                 if (invoice.subscriptionId) {
                     const subscription = db.subscriptions.find(s => s.id === invoice.subscriptionId);
                     if (subscription && subscription.status === 'pending') {
                         subscription.status = 'active';
                         subscription.activatedAt = new Date().toISOString();
-                        
+
                         // End trial for user
                         const dbUser = db.users.find(u => u.id === req.user.id);
                         if (dbUser) {
@@ -2755,10 +2777,10 @@ app.post('/api/payments/paypal/confirm',
                     }
                 }
             }
-            
+
             saveDb(db);
             auditLog('PAYPAL_PAYMENT_CONFIRMED', req.user.id, { paymentId, invoiceId: transaction.invoiceId });
-            
+
             res.json({
                 success: true,
                 transactionId: transaction.id,
@@ -2783,12 +2805,12 @@ app.get('/api/payments/transactions',
             if (req.user.role !== 'ADMIN' || req.user.id !== 'super_admin') {
                 transactions = transactions.filter(t => t.userId === req.user.id);
             }
-            
+
             // Sort by date (newest first)
-            transactions = transactions.sort((a, b) => 
+            transactions = transactions.sort((a, b) =>
                 new Date(b.createdAt) - new Date(a.createdAt)
             );
-            
+
             res.json(transactions);
         } catch (error) {
             console.error('Get transactions error:', error);
@@ -2812,12 +2834,12 @@ app.post('/api/reports/:reportId/customize',
         try {
             const { reportId } = req.params;
             const { clientId, customizations } = req.body;
-            
+
             // Remove existing customization
             db.clientReportCustomizations = db.clientReportCustomizations.filter(
                 c => !(c.reportId === reportId && c.clientId === clientId)
             );
-            
+
             // Add new customization
             db.clientReportCustomizations.push({
                 id: 'custom_' + Date.now(),
@@ -2827,7 +2849,7 @@ app.post('/api/reports/:reportId/customize',
                 userId: req.user.id,
                 createdAt: new Date().toISOString()
             });
-            
+
             saveDb(db);
             auditLog('REPORT_CUSTOMIZED', req.user.id, { reportId, clientId });
             res.json({ message: 'Report customized successfully' });
@@ -2920,7 +2942,7 @@ app.put('/api/kpis/:id',
             if (!kpi) {
                 return res.status(404).json({ message: 'KPI not found' });
             }
-            
+
             Object.assign(kpi, req.body, { updatedAt: new Date().toISOString() });
             saveDb(db);
             auditLog('KPI_UPDATED', req.user.id, { kpiId: id });
@@ -3010,13 +3032,13 @@ app.get('/api/audit-logs',
         try {
             const { limit = 100, offset = 0, userId, action } = req.query;
             let logs = db.auditLogs;
-            
+
             if (userId) logs = logs.filter(l => l.userId === userId);
             if (action) logs = logs.filter(l => l.action === action);
-            
+
             logs = logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
             logs = logs.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
-            
+
             res.json({ logs, total: db.auditLogs.length });
         } catch (error) {
             console.error('Get audit logs error:', error);
@@ -3061,7 +3083,7 @@ app.get('/api/gdpr/export-data',
                 scheduledReports: filterByClient(db.scheduledReports, req.user),
                 auditLogs: db.auditLogs.filter(l => l.userId === userId)
             };
-            
+
             auditLog('GDPR_EXPORT', userId);
             res.json(userData);
         } catch (error) {
@@ -3081,14 +3103,14 @@ app.delete('/api/gdpr/delete-account',
     (req, res) => {
         try {
             const userId = req.user.id;
-            
+
             // Delete user data
             db.users = db.users.filter(u => u.id !== userId);
             db.clients = db.clients.filter(c => c.userId !== userId);
             db.reports = db.reports.filter(r => r.userId !== userId);
             db.kpis = db.kpis.filter(k => k.userId !== userId);
             db.scheduledReports = db.scheduledReports.filter(s => s.userId !== userId);
-            
+
             saveDb(db);
             auditLog('ACCOUNT_DELETED', userId);
             res.json({ message: 'Account and all data deleted successfully' });
@@ -3100,537 +3122,537 @@ app.delete('/api/gdpr/delete-account',
 );
 
 // --- PLATFORM DATA ENDPOINTS ---
-app.get('/api/platforms/:id/data', 
-    requireAuth, 
+app.get('/api/platforms/:id/data',
+    requireAuth,
     apiLimiter,
     [param('id').notEmpty()],
     handleValidationErrors,
     (req, res) => {
         try {
-    const { id } = req.params;
-    const { range } = req.query; 
-    
-    const m = range === 'daily' ? 1 : range === 'weekly' ? 7 : 30;
-    const variance = () => 0.9 + Math.random() * 0.2;
+            const { id } = req.params;
+            const { range } = req.query;
 
-    let data = null;
+            const m = range === 'daily' ? 1 : range === 'weekly' ? 7 : 30;
+            const variance = () => 0.9 + Math.random() * 0.2;
 
-    if (id === 'google_ads') {
-        data = {
-            id: 'google_ads',
-            metrics: [
-                { label: 'Impressions', value: (1200000 * m * variance()).toLocaleString(), change: '+12%', trend: 'up' },
-                { label: 'Clicks', value: Math.floor(45200 * m * variance()).toLocaleString(), change: '+8%', trend: 'up' },
-                { label: 'Avg. CPC', value: 'KES 45', change: '-2%', trend: 'down' },
-                { label: 'Conversions', value: Math.floor(1240 * m * variance()).toLocaleString(), change: '+15%', trend: 'up' },
-            ]
-        };
-    } else if (id === 'ga4') {
-         data = {
-            id: 'ga4',
-            metrics: [
-                { label: 'Users', value: Math.floor(85400 * m * variance()).toLocaleString(), change: '+22%', trend: 'up' },
-                { label: 'New Users', value: Math.floor(65000 * m * variance()).toLocaleString(), change: '+15%', trend: 'up' },
-                { label: 'Sessions', value: Math.floor(120000 * m * variance()).toLocaleString(), change: '+18%', trend: 'up' },
-                { label: 'Engagement Rate', value: '58.4%', change: '+2.4%', trend: 'up' },
-            ]
-        };
-    }
-    
+            let data = null;
+
+            if (id === 'google_ads') {
+                data = {
+                    id: 'google_ads',
+                    metrics: [
+                        { label: 'Impressions', value: (1200000 * m * variance()).toLocaleString(), change: '+12%', trend: 'up' },
+                        { label: 'Clicks', value: Math.floor(45200 * m * variance()).toLocaleString(), change: '+8%', trend: 'up' },
+                        { label: 'Avg. CPC', value: 'KES 45', change: '-2%', trend: 'down' },
+                        { label: 'Conversions', value: Math.floor(1240 * m * variance()).toLocaleString(), change: '+15%', trend: 'up' },
+                    ]
+                };
+            } else if (id === 'ga4') {
+                data = {
+                    id: 'ga4',
+                    metrics: [
+                        { label: 'Users', value: Math.floor(85400 * m * variance()).toLocaleString(), change: '+22%', trend: 'up' },
+                        { label: 'New Users', value: Math.floor(65000 * m * variance()).toLocaleString(), change: '+15%', trend: 'up' },
+                        { label: 'Sessions', value: Math.floor(120000 * m * variance()).toLocaleString(), change: '+18%', trend: 'up' },
+                        { label: 'Engagement Rate', value: '58.4%', change: '+2.4%', trend: 'up' },
+                    ]
+                };
+            }
+
             if (data) {
                 res.json(data);
             } else {
                 res.json({ id, metrics: [] });
 
-            // --- SUBSCRIPTION & PAYMENT ENDPOINTS ---
+                // --- SUBSCRIPTION & PAYMENT ENDPOINTS ---
 
-            // Basic email logger (replace with real provider in production)
-            const queueEmailNotification = (to, subject, message, meta = {}) => {
-                if (!to) return;
-                if (!db.emailNotifications) db.emailNotifications = [];
-                const entry = {
-                    id: 'mail_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                    to,
-                    subject,
-                    message,
-                    meta,
-                    timestamp: new Date().toISOString()
+                // Basic email logger (replace with real provider in production)
+                const queueEmailNotification = (to, subject, message, meta = {}) => {
+                    if (!to) return;
+                    if (!db.emailNotifications) db.emailNotifications = [];
+                    const entry = {
+                        id: 'mail_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                        to,
+                        subject,
+                        message,
+                        meta,
+                        timestamp: new Date().toISOString()
+                    };
+                    db.emailNotifications.push(entry);
+                    saveDb(db);
+                    console.log(`[EMAIL-LOG] → ${to}: ${subject}`);
                 };
-                db.emailNotifications.push(entry);
-                saveDb(db);
-                console.log(`[EMAIL-LOG] → ${to}: ${subject}`);
-            };
 
-            // Payment webhook (Stripe/M-Pesa ready)
-            app.post('/api/payments/webhook',
-                apiLimiter,
-                (req, res) => {
-                    try {
-                        const secret = process.env.WEBHOOK_SECRET;
-                        const signature = req.headers['x-webhook-signature'] || req.headers['stripe-signature'];
-                        if (secret && signature !== secret) {
-                            return res.status(401).json({ message: 'Invalid webhook signature' });
+                // Payment webhook (Stripe/M-Pesa ready)
+                app.post('/api/payments/webhook',
+                    apiLimiter,
+                    (req, res) => {
+                        try {
+                            const secret = process.env.WEBHOOK_SECRET;
+                            const signature = req.headers['x-webhook-signature'] || req.headers['stripe-signature'];
+                            if (secret && signature !== secret) {
+                                return res.status(401).json({ message: 'Invalid webhook signature' });
+                            }
+
+                            const { eventType, data = {} } = req.body || {};
+                            const paymentIntentId = data.paymentIntentId || data.id;
+                            const userId = data.userId;
+
+                            if (eventType === 'payment_succeeded' && paymentIntentId) {
+                                const intent = db.paymentIntents?.find(p => p.id === paymentIntentId);
+                                if (intent) {
+                                    intent.status = 'succeeded';
+                                    intent.transactionId = data.transactionId || data.chargeId || intent.transactionId;
+                                    intent.confirmedAt = new Date().toISOString();
+
+                                    // If a trial exists, activate it
+                                    const subscription = db.subscriptions?.find(s => s.userId === intent.userId && s.status === 'trial');
+                                    if (subscription) {
+                                        subscription.status = 'active';
+                                        subscription.paymentIntentId = paymentIntentId;
+                                        subscription.transactionId = intent.transactionId;
+                                        subscription.updatedAt = new Date().toISOString();
+                                        subscription.nextBillingDate = subscription.nextBillingDate || new Date(Date.now() + (subscription.billingCycle === 'yearly' ? 365 : 30) * 24 * 60 * 60 * 1000).toISOString();
+                                    }
+
+                                    saveDb(db);
+                                    const emailTo = intent.email || (db.users.find(u => u.id === intent.userId)?.email);
+                                    queueEmailNotification(emailTo, 'Payment successful', 'Your payment was received successfully. Your access remains active.', { paymentIntentId });
+                                    auditLog('PAYMENT_CONFIRMED', intent.userId || userId, { via: 'webhook', paymentIntentId });
+                                }
+                            } else if (eventType === 'payment_failed' && paymentIntentId) {
+                                const intent = db.paymentIntents?.find(p => p.id === paymentIntentId);
+                                if (intent) {
+                                    intent.status = 'failed';
+                                    intent.failedAt = new Date().toISOString();
+                                    saveDb(db);
+                                    const emailTo = intent.email || (db.users.find(u => u.id === intent.userId)?.email);
+                                    queueEmailNotification(emailTo, 'Payment failed', 'Payment could not be processed. Please update your payment method to keep access.', { paymentIntentId });
+                                    auditLog('PAYMENT_FAILED', intent.userId || userId, { paymentIntentId });
+                                }
+                            } else if (eventType === 'trial_will_expire' && data.subscriptionId) {
+                                const sub = db.subscriptions?.find(s => s.id === data.subscriptionId);
+                                if (sub && sub.status === 'trial') {
+                                    const emailTo = db.users.find(u => u.id === sub.userId)?.email;
+                                    queueEmailNotification(emailTo, 'Trial ending soon', 'Your trial ends soon. Add a payment method to keep uninterrupted access.', { subscriptionId: sub.id });
+                                    sub.trialWarningSent = true;
+                                    saveDb(db);
+                                    auditLog('TRIAL_WARNING_SENT', sub.userId, { subscriptionId: sub.id });
+                                }
+                            }
+
+                            res.json({ received: true });
+                        } catch (error) {
+                            console.error('Webhook handling error:', error);
+                            res.status(500).json({ message: 'Webhook handling failed' });
                         }
+                    }
+                );
 
-                        const { eventType, data = {} } = req.body || {};
-                        const paymentIntentId = data.paymentIntentId || data.id;
-                        const userId = data.userId;
+                // Create Trial Subscription (7 days free)
+                app.post('/api/subscriptions/create-trial',
+                    requireAuth,
+                    apiLimiter,
+                    [
+                        body('planId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
+                        body('trialDays').isInt({ min: 1, max: 30 }).withMessage('Trial days must be 1-30'),
+                        body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle')
+                    ],
+                    handleValidationErrors,
+                    (req, res) => {
+                        try {
+                            const { planId, trialDays = 7, billingCycle } = req.body;
+                            const userId = req.user.id;
 
-                        if (eventType === 'payment_succeeded' && paymentIntentId) {
-                            const intent = db.paymentIntents?.find(p => p.id === paymentIntentId);
-                            if (intent) {
-                                intent.status = 'succeeded';
-                                intent.transactionId = data.transactionId || data.chargeId || intent.transactionId;
-                                intent.confirmedAt = new Date().toISOString();
+                            // Initialize subscriptions array if needed
+                            if (!db.subscriptions) {
+                                db.subscriptions = [];
+                            }
 
-                                // If a trial exists, activate it
-                                const subscription = db.subscriptions?.find(s => s.userId === intent.userId && s.status === 'trial');
-                                if (subscription) {
-                                    subscription.status = 'active';
-                                    subscription.paymentIntentId = paymentIntentId;
-                                    subscription.transactionId = intent.transactionId;
-                                    subscription.updatedAt = new Date().toISOString();
-                                    subscription.nextBillingDate = subscription.nextBillingDate || new Date(Date.now() + (subscription.billingCycle === 'yearly' ? 365 : 30) * 24 * 60 * 60 * 1000).toISOString();
+                            // Create subscription record
+                            const subscription = {
+                                id: 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                                userId,
+                                planId,
+                                billingCycle,
+                                status: 'trial',
+                                trialStartsAt: new Date().toISOString(),
+                                trialEndsAt: new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000).toISOString(),
+                                paymentStartDate: new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000).toISOString(),
+                                createdAt: new Date().toISOString(),
+                                updatedAt: new Date().toISOString()
+                            };
+
+                            // Remove any existing trial or pending subscription
+                            db.subscriptions = db.subscriptions.filter(
+                                s => !(s.userId === userId && (s.status === 'trial' || s.status === 'pending'))
+                            );
+
+                            db.subscriptions.push(subscription);
+
+                            // Update user trial status
+                            const user = db.users.find(u => u.id === userId);
+                            if (user) {
+                                user.isTrial = true;
+                                user.trialEndsAt = subscription.trialEndsAt;
+                                user.subscriptionId = subscription.id;
+                            }
+
+                            saveDb(db);
+                            auditLog('SUBSCRIPTION_TRIAL_CREATED', userId, { planId, trialDays });
+
+                            res.status(201).json({
+                                success: true,
+                                subscriptionId: subscription.id,
+                                subscription
+                            });
+                        } catch (error) {
+                            console.error('Trial subscription creation error:', error);
+                            res.status(500).json({ message: 'Failed to create trial subscription' });
+                        }
+                    }
+                );
+
+                // Create Payment Checkout Session
+                app.post('/api/payments/create-checkout',
+                    requireAuth,
+                    apiLimiter,
+                    [
+                        body('planId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
+                        body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle'),
+                        body('amount').isInt({ min: 1000 }).withMessage('Invalid amount'),
+                        body('trialPeriodDays').optional().isInt({ min: 1, max: 30 })
+                    ],
+                    handleValidationErrors,
+                    async (req, res) => {
+                        try {
+                            const { planId, billingCycle, amount, trialPeriodDays = 7 } = req.body;
+                            const userId = req.user.id;
+                            const user = db.users.find(u => u.id === userId);
+
+                            if (!user) {
+                                return res.status(404).json({ message: 'User not found' });
+                            }
+
+                            // In production, integrate with Stripe or M-Pesa
+                            // For now, create a payment intent record
+                            if (!db.paymentIntents) {
+                                db.paymentIntents = [];
+                            }
+
+                            const paymentIntent = {
+                                id: 'pi_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                                userId,
+                                planId,
+                                billingCycle,
+                                amount,
+                                status: 'pending',
+                                trialDays: trialPeriodDays,
+                                email: user.email,
+                                createdAt: new Date().toISOString(),
+                                expiresAt: new Date(Date.now() + 1800000).toISOString() // 30 minutes
+                            };
+
+                            db.paymentIntents.push(paymentIntent);
+                            saveDb(db);
+
+                            // In production, create Stripe or M-Pesa checkout session
+                            // For demo, return a mock session URL
+                            const sessionUrl = `/payment/checkout?intent=${paymentIntent.id}&plan=${planId}&amount=${amount}`;
+
+                            auditLog('PAYMENT_INTENT_CREATED', userId, { planId, amount });
+
+                            res.json({
+                                success: true,
+                                paymentIntentId: paymentIntent.id,
+                                sessionUrl,
+                                // In production:
+                                // sessionUrl: stripeSession.url or mpesaUrl
+                            });
+                        } catch (error) {
+                            console.error('Payment checkout error:', error);
+                            res.status(500).json({ message: 'Failed to create payment session' });
+                        }
+                    }
+                );
+
+                // Confirm Payment and Activate Subscription
+                app.post('/api/payments/confirm',
+                    requireAuth,
+                    apiLimiter,
+                    [
+                        body('paymentIntentId').notEmpty(),
+                        body('transactionId').notEmpty().withMessage('Transaction ID required')
+                    ],
+                    handleValidationErrors,
+                    (req, res) => {
+                        try {
+                            const { paymentIntentId, transactionId } = req.body;
+                            const userId = req.user.id;
+
+                            const paymentIntent = db.paymentIntents?.find(
+                                p => p.id === paymentIntentId && p.userId === userId
+                            );
+
+                            if (!paymentIntent) {
+                                return res.status(404).json({ message: 'Payment intent not found' });
+                            }
+
+                            if (paymentIntent.status !== 'pending') {
+                                return res.status(400).json({ message: 'Payment already processed' });
+                            }
+
+                            // Update payment intent
+                            paymentIntent.status = 'succeeded';
+                            paymentIntent.transactionId = transactionId;
+                            paymentIntent.confirmedAt = new Date().toISOString();
+
+                            // Create active subscription
+                            if (!db.subscriptions) {
+                                db.subscriptions = [];
+                            }
+
+                            // Calculate next billing date
+                            const nextBillingDate = paymentIntent.billingCycle === 'yearly'
+                                ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+                                : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
+                            const subscription = {
+                                id: 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                                userId,
+                                planId: paymentIntent.planId,
+                                billingCycle: paymentIntent.billingCycle,
+                                status: 'active',
+                                paymentStatus: 'paid',
+                                paymentIntentId,
+                                transactionId,
+                                startDate: new Date().toISOString(),
+                                nextBillingDate: nextBillingDate.toISOString(),
+                                amount: paymentIntent.amount,
+                                createdAt: new Date().toISOString(),
+                                updatedAt: new Date().toISOString()
+                            };
+
+                            // Replace any previous subscription
+                            db.subscriptions = db.subscriptions.filter(s => s.userId !== userId || s.status === 'cancelled');
+                            db.subscriptions.push(subscription);
+
+                            // Update user
+                            const user = db.users.find(u => u.id === userId);
+                            if (user) {
+                                user.isTrial = false;
+                                user.subscriptionId = subscription.id;
+                                user.subscriptionPlan = subscription.planId;
+                                user.subscriptionStatus = 'active';
+                            }
+
+                            saveDb(db);
+                            auditLog('PAYMENT_CONFIRMED', userId, { planId: paymentIntent.planId, amount: paymentIntent.amount });
+
+                            const emailTo = paymentIntent.email || user?.email;
+                            queueEmailNotification(emailTo, 'Payment successful', 'Your payment was received successfully. Your subscription is now active.', { paymentIntentId, transactionId, planId: paymentIntent.planId });
+
+                            res.json({
+                                success: true,
+                                subscription,
+                                message: 'Payment successful. Your subscription is now active!'
+                            });
+                        } catch (error) {
+                            console.error('Payment confirmation error:', error);
+                            res.status(500).json({ message: 'Failed to confirm payment' });
+                        }
+                    }
+                );
+
+                // Get Subscription Status
+                app.get('/api/subscriptions/current',
+                    requireAuth,
+                    apiLimiter,
+                    (req, res) => {
+                        try {
+                            const userId = req.user.id;
+                            const subscription = db.subscriptions?.find(
+                                s => s.userId === userId && (s.status === 'active' || s.status === 'trial')
+                            );
+
+                            if (!subscription) {
+                                return res.json({ subscription: null, message: 'No active subscription' });
+                            }
+
+                            // Calculate trial time remaining
+                            if (subscription.status === 'trial' && subscription.trialEndsAt) {
+                                const now = new Date();
+                                const trialEnd = new Date(subscription.trialEndsAt);
+                                const daysRemaining = Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24));
+                                subscription.trialDaysRemaining = Math.max(0, daysRemaining);
+                            }
+
+                            res.json({ subscription });
+                        } catch (error) {
+                            console.error('Get subscription error:', error);
+                            res.status(500).json({ message: 'Failed to fetch subscription' });
+                        }
+                    }
+                );
+
+                // Cancel Subscription
+                app.post('/api/subscriptions/cancel',
+                    requireAuth,
+                    apiLimiter,
+                    (req, res) => {
+                        try {
+                            const userId = req.user.id;
+                            const subscription = db.subscriptions?.find(
+                                s => s.userId === userId && s.status === 'active'
+                            );
+
+                            if (!subscription) {
+                                return res.status(404).json({ message: 'No active subscription to cancel' });
+                            }
+
+                            subscription.status = 'cancelled';
+                            subscription.cancelledAt = new Date().toISOString();
+                            subscription.updatedAt = new Date().toISOString();
+
+                            const user = db.users.find(u => u.id === userId);
+                            if (user) {
+                                user.subscriptionStatus = 'cancelled';
+                            }
+
+                            saveDb(db);
+                            auditLog('SUBSCRIPTION_CANCELLED', userId);
+
+                            res.json({ success: true, message: 'Subscription cancelled' });
+                        } catch (error) {
+                            console.error('Cancel subscription error:', error);
+                            res.status(500).json({ message: 'Failed to cancel subscription' });
+                        }
+                    }
+                );
+
+                // Upgrade/Downgrade Plan
+                app.post('/api/subscriptions/change-plan',
+                    requireAuth,
+                    apiLimiter,
+                    [
+                        body('newPlanId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
+                        body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle')
+                    ],
+                    handleValidationErrors,
+                    (req, res) => {
+                        try {
+                            const { newPlanId, billingCycle } = req.body;
+                            const userId = req.user.id;
+
+                            const subscription = db.subscriptions?.find(
+                                s => s.userId === userId && s.status === 'active'
+                            );
+
+                            if (!subscription) {
+                                return res.status(404).json({ message: 'No active subscription' });
+                            }
+
+                            // Create change record
+                            if (!db.planChanges) {
+                                db.planChanges = [];
+                            }
+
+                            db.planChanges.push({
+                                id: 'change_' + Date.now(),
+                                subscriptionId: subscription.id,
+                                userId,
+                                fromPlan: subscription.planId,
+                                toPlan: newPlanId,
+                                fromBilling: subscription.billingCycle,
+                                toBilling: billingCycle,
+                                status: 'pending',
+                                changedAt: new Date().toISOString()
+                            });
+
+                            // Update subscription
+                            subscription.planId = newPlanId;
+                            subscription.billingCycle = billingCycle;
+                            subscription.updatedAt = new Date().toISOString();
+
+                            saveDb(db);
+                            auditLog('SUBSCRIPTION_PLAN_CHANGED', userId, { newPlan: newPlanId });
+
+                            res.json({
+                                success: true,
+                                subscription,
+                                message: 'Plan changed successfully'
+                            });
+                        } catch (error) {
+                            console.error('Change plan error:', error);
+                            res.status(500).json({ message: 'Failed to change plan' });
+                        }
+                    }
+                );
+
+                // Check Trial Status and Migrate to Paid if Expired
+                app.post('/api/subscriptions/check-trial-expiry',
+                    requireAuth,
+                    apiLimiter,
+                    (req, res) => {
+                        try {
+                            const userId = req.user.id;
+                            const user = db.users.find(u => u.id === userId);
+                            const subscription = db.subscriptions?.find(
+                                s => s.userId === userId && s.status === 'trial'
+                            );
+
+                            if (!subscription) {
+                                return res.json({ expired: false, message: 'No trial subscription' });
+                            }
+
+                            const now = new Date();
+                            const trialEnd = new Date(subscription.trialEndsAt);
+
+                            if (now > trialEnd) {
+                                // Trial has expired - require payment
+                                subscription.status = 'expired';
+                                subscription.updatedAt = new Date().toISOString();
+
+                                if (user) {
+                                    user.isTrial = false;
                                 }
 
                                 saveDb(db);
-                                const emailTo = intent.email || (db.users.find(u => u.id === intent.userId)?.email);
-                                queueEmailNotification(emailTo, 'Payment successful', 'Your payment was received successfully. Your access remains active.', { paymentIntentId });
-                                auditLog('PAYMENT_CONFIRMED', intent.userId || userId, { via: 'webhook', paymentIntentId });
+                                auditLog('TRIAL_EXPIRED', userId);
+
+                                const emailTo = user?.email;
+                                queueEmailNotification(emailTo, 'Trial expired', 'Your trial has ended. Add a payment method to keep using WebProMetrics.', { subscriptionId: subscription.id });
+
+                                return res.json({
+                                    expired: true,
+                                    message: 'Trial has expired. Please subscribe to continue.',
+                                    trialEndedAt: subscription.trialEndsAt
+                                });
                             }
-                        } else if (eventType === 'payment_failed' && paymentIntentId) {
-                            const intent = db.paymentIntents?.find(p => p.id === paymentIntentId);
-                            if (intent) {
-                                intent.status = 'failed';
-                                intent.failedAt = new Date().toISOString();
-                                saveDb(db);
-                                const emailTo = intent.email || (db.users.find(u => u.id === intent.userId)?.email);
-                                queueEmailNotification(emailTo, 'Payment failed', 'Payment could not be processed. Please update your payment method to keep access.', { paymentIntentId });
-                                auditLog('PAYMENT_FAILED', intent.userId || userId, { paymentIntentId });
-                            }
-                        } else if (eventType === 'trial_will_expire' && data.subscriptionId) {
-                            const sub = db.subscriptions?.find(s => s.id === data.subscriptionId);
-                            if (sub && sub.status === 'trial') {
-                                const emailTo = db.users.find(u => u.id === sub.userId)?.email;
-                                queueEmailNotification(emailTo, 'Trial ending soon', 'Your trial ends soon. Add a payment method to keep uninterrupted access.', { subscriptionId: sub.id });
-                                sub.trialWarningSent = true;
-                                saveDb(db);
-                                auditLog('TRIAL_WARNING_SENT', sub.userId, { subscriptionId: sub.id });
-                            }
-                        }
 
-                        res.json({ received: true });
-                    } catch (error) {
-                        console.error('Webhook handling error:', error);
-                        res.status(500).json({ message: 'Webhook handling failed' });
-                    }
-                }
-            );
-
-            // Create Trial Subscription (7 days free)
-            app.post('/api/subscriptions/create-trial',
-                requireAuth,
-                apiLimiter,
-                [
-                    body('planId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
-                    body('trialDays').isInt({ min: 1, max: 30 }).withMessage('Trial days must be 1-30'),
-                    body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle')
-                ],
-                handleValidationErrors,
-                (req, res) => {
-                    try {
-                        const { planId, trialDays = 7, billingCycle } = req.body;
-                        const userId = req.user.id;
-
-                        // Initialize subscriptions array if needed
-                        if (!db.subscriptions) {
-                            db.subscriptions = [];
-                        }
-
-                        // Create subscription record
-                        const subscription = {
-                            id: 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                            userId,
-                            planId,
-                            billingCycle,
-                            status: 'trial',
-                            trialStartsAt: new Date().toISOString(),
-                            trialEndsAt: new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000).toISOString(),
-                            paymentStartDate: new Date(Date.now() + trialDays * 24 * 60 * 60 * 1000).toISOString(),
-                            createdAt: new Date().toISOString(),
-                            updatedAt: new Date().toISOString()
-                        };
-
-                        // Remove any existing trial or pending subscription
-                        db.subscriptions = db.subscriptions.filter(
-                            s => !(s.userId === userId && (s.status === 'trial' || s.status === 'pending'))
-                        );
-
-                        db.subscriptions.push(subscription);
-
-                        // Update user trial status
-                        const user = db.users.find(u => u.id === userId);
-                        if (user) {
-                            user.isTrial = true;
-                            user.trialEndsAt = subscription.trialEndsAt;
-                            user.subscriptionId = subscription.id;
-                        }
-
-                        saveDb(db);
-                        auditLog('SUBSCRIPTION_TRIAL_CREATED', userId, { planId, trialDays });
-
-                        res.status(201).json({
-                            success: true,
-                            subscriptionId: subscription.id,
-                            subscription
-                        });
-                    } catch (error) {
-                        console.error('Trial subscription creation error:', error);
-                        res.status(500).json({ message: 'Failed to create trial subscription' });
-                    }
-                }
-            );
-
-            // Create Payment Checkout Session
-            app.post('/api/payments/create-checkout',
-                requireAuth,
-                apiLimiter,
-                [
-                    body('planId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
-                    body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle'),
-                    body('amount').isInt({ min: 1000 }).withMessage('Invalid amount'),
-                    body('trialPeriodDays').optional().isInt({ min: 1, max: 30 })
-                ],
-                handleValidationErrors,
-                async (req, res) => {
-                    try {
-                        const { planId, billingCycle, amount, trialPeriodDays = 7 } = req.body;
-                        const userId = req.user.id;
-                        const user = db.users.find(u => u.id === userId);
-
-                        if (!user) {
-                            return res.status(404).json({ message: 'User not found' });
-                        }
-
-                        // In production, integrate with Stripe or M-Pesa
-                        // For now, create a payment intent record
-                        if (!db.paymentIntents) {
-                            db.paymentIntents = [];
-                        }
-
-                        const paymentIntent = {
-                            id: 'pi_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                            userId,
-                            planId,
-                            billingCycle,
-                            amount,
-                            status: 'pending',
-                            trialDays: trialPeriodDays,
-                            email: user.email,
-                            createdAt: new Date().toISOString(),
-                            expiresAt: new Date(Date.now() + 1800000).toISOString() // 30 minutes
-                        };
-
-                        db.paymentIntents.push(paymentIntent);
-                        saveDb(db);
-
-                        // In production, create Stripe or M-Pesa checkout session
-                        // For demo, return a mock session URL
-                        const sessionUrl = `/payment/checkout?intent=${paymentIntent.id}&plan=${planId}&amount=${amount}`;
-
-                        auditLog('PAYMENT_INTENT_CREATED', userId, { planId, amount });
-
-                        res.json({
-                            success: true,
-                            paymentIntentId: paymentIntent.id,
-                            sessionUrl,
-                            // In production:
-                            // sessionUrl: stripeSession.url or mpesaUrl
-                        });
-                    } catch (error) {
-                        console.error('Payment checkout error:', error);
-                        res.status(500).json({ message: 'Failed to create payment session' });
-                    }
-                }
-            );
-
-            // Confirm Payment and Activate Subscription
-            app.post('/api/payments/confirm',
-                requireAuth,
-                apiLimiter,
-                [
-                    body('paymentIntentId').notEmpty(),
-                    body('transactionId').notEmpty().withMessage('Transaction ID required')
-                ],
-                handleValidationErrors,
-                (req, res) => {
-                    try {
-                        const { paymentIntentId, transactionId } = req.body;
-                        const userId = req.user.id;
-
-                        const paymentIntent = db.paymentIntents?.find(
-                            p => p.id === paymentIntentId && p.userId === userId
-                        );
-
-                        if (!paymentIntent) {
-                            return res.status(404).json({ message: 'Payment intent not found' });
-                        }
-
-                        if (paymentIntent.status !== 'pending') {
-                            return res.status(400).json({ message: 'Payment already processed' });
-                        }
-
-                        // Update payment intent
-                        paymentIntent.status = 'succeeded';
-                        paymentIntent.transactionId = transactionId;
-                        paymentIntent.confirmedAt = new Date().toISOString();
-
-                        // Create active subscription
-                        if (!db.subscriptions) {
-                            db.subscriptions = [];
-                        }
-
-                        // Calculate next billing date
-                        const nextBillingDate = paymentIntent.billingCycle === 'yearly'
-                            ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-                            : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-
-                        const subscription = {
-                            id: 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                            userId,
-                            planId: paymentIntent.planId,
-                            billingCycle: paymentIntent.billingCycle,
-                            status: 'active',
-                            paymentStatus: 'paid',
-                            paymentIntentId,
-                            transactionId,
-                            startDate: new Date().toISOString(),
-                            nextBillingDate: nextBillingDate.toISOString(),
-                            amount: paymentIntent.amount,
-                            createdAt: new Date().toISOString(),
-                            updatedAt: new Date().toISOString()
-                        };
-
-                        // Replace any previous subscription
-                        db.subscriptions = db.subscriptions.filter(s => s.userId !== userId || s.status === 'cancelled');
-                        db.subscriptions.push(subscription);
-
-                        // Update user
-                        const user = db.users.find(u => u.id === userId);
-                        if (user) {
-                            user.isTrial = false;
-                            user.subscriptionId = subscription.id;
-                            user.subscriptionPlan = subscription.planId;
-                            user.subscriptionStatus = 'active';
-                        }
-
-                        saveDb(db);
-                        auditLog('PAYMENT_CONFIRMED', userId, { planId: paymentIntent.planId, amount: paymentIntent.amount });
-
-                        const emailTo = paymentIntent.email || user?.email;
-                        queueEmailNotification(emailTo, 'Payment successful', 'Your payment was received successfully. Your subscription is now active.', { paymentIntentId, transactionId, planId: paymentIntent.planId });
-
-                        res.json({
-                            success: true,
-                            subscription,
-                            message: 'Payment successful. Your subscription is now active!'
-                        });
-                    } catch (error) {
-                        console.error('Payment confirmation error:', error);
-                        res.status(500).json({ message: 'Failed to confirm payment' });
-                    }
-                }
-            );
-
-            // Get Subscription Status
-            app.get('/api/subscriptions/current',
-                requireAuth,
-                apiLimiter,
-                (req, res) => {
-                    try {
-                        const userId = req.user.id;
-                        const subscription = db.subscriptions?.find(
-                            s => s.userId === userId && (s.status === 'active' || s.status === 'trial')
-                        );
-
-                        if (!subscription) {
-                            return res.json({ subscription: null, message: 'No active subscription' });
-                        }
-
-                        // Calculate trial time remaining
-                        if (subscription.status === 'trial' && subscription.trialEndsAt) {
-                            const now = new Date();
-                            const trialEnd = new Date(subscription.trialEndsAt);
                             const daysRemaining = Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24));
-                            subscription.trialDaysRemaining = Math.max(0, daysRemaining);
-                        }
 
-                        res.json({ subscription });
-                    } catch (error) {
-                        console.error('Get subscription error:', error);
-                        res.status(500).json({ message: 'Failed to fetch subscription' });
-                    }
-                }
-            );
-
-            // Cancel Subscription
-            app.post('/api/subscriptions/cancel',
-                requireAuth,
-                apiLimiter,
-                (req, res) => {
-                    try {
-                        const userId = req.user.id;
-                        const subscription = db.subscriptions?.find(
-                            s => s.userId === userId && s.status === 'active'
-                        );
-
-                        if (!subscription) {
-                            return res.status(404).json({ message: 'No active subscription to cancel' });
-                        }
-
-                        subscription.status = 'cancelled';
-                        subscription.cancelledAt = new Date().toISOString();
-                        subscription.updatedAt = new Date().toISOString();
-
-                        const user = db.users.find(u => u.id === userId);
-                        if (user) {
-                            user.subscriptionStatus = 'cancelled';
-                        }
-
-                        saveDb(db);
-                        auditLog('SUBSCRIPTION_CANCELLED', userId);
-
-                        res.json({ success: true, message: 'Subscription cancelled' });
-                    } catch (error) {
-                        console.error('Cancel subscription error:', error);
-                        res.status(500).json({ message: 'Failed to cancel subscription' });
-                    }
-                }
-            );
-
-            // Upgrade/Downgrade Plan
-            app.post('/api/subscriptions/change-plan',
-                requireAuth,
-                apiLimiter,
-                [
-                    body('newPlanId').isIn(['starter', 'agency', 'enterprise']).withMessage('Invalid plan'),
-                    body('billingCycle').isIn(['monthly', 'yearly']).withMessage('Invalid billing cycle')
-                ],
-                handleValidationErrors,
-                (req, res) => {
-                    try {
-                        const { newPlanId, billingCycle } = req.body;
-                        const userId = req.user.id;
-
-                        const subscription = db.subscriptions?.find(
-                            s => s.userId === userId && s.status === 'active'
-                        );
-
-                        if (!subscription) {
-                            return res.status(404).json({ message: 'No active subscription' });
-                        }
-
-                        // Create change record
-                        if (!db.planChanges) {
-                            db.planChanges = [];
-                        }
-
-                        db.planChanges.push({
-                            id: 'change_' + Date.now(),
-                            subscriptionId: subscription.id,
-                            userId,
-                            fromPlan: subscription.planId,
-                            toPlan: newPlanId,
-                            fromBilling: subscription.billingCycle,
-                            toBilling: billingCycle,
-                            status: 'pending',
-                            changedAt: new Date().toISOString()
-                        });
-
-                        // Update subscription
-                        subscription.planId = newPlanId;
-                        subscription.billingCycle = billingCycle;
-                        subscription.updatedAt = new Date().toISOString();
-
-                        saveDb(db);
-                        auditLog('SUBSCRIPTION_PLAN_CHANGED', userId, { newPlan: newPlanId });
-
-                        res.json({
-                            success: true,
-                            subscription,
-                            message: 'Plan changed successfully'
-                        });
-                    } catch (error) {
-                        console.error('Change plan error:', error);
-                        res.status(500).json({ message: 'Failed to change plan' });
-                    }
-                }
-            );
-
-            // Check Trial Status and Migrate to Paid if Expired
-            app.post('/api/subscriptions/check-trial-expiry',
-                requireAuth,
-                apiLimiter,
-                (req, res) => {
-                    try {
-                        const userId = req.user.id;
-                        const user = db.users.find(u => u.id === userId);
-                        const subscription = db.subscriptions?.find(
-                            s => s.userId === userId && s.status === 'trial'
-                        );
-
-                        if (!subscription) {
-                            return res.json({ expired: false, message: 'No trial subscription' });
-                        }
-
-                        const now = new Date();
-                        const trialEnd = new Date(subscription.trialEndsAt);
-
-                        if (now > trialEnd) {
-                            // Trial has expired - require payment
-                            subscription.status = 'expired';
-                            subscription.updatedAt = new Date().toISOString();
-
-                            if (user) {
-                                user.isTrial = false;
+                            if (daysRemaining <= 2 && !subscription.trialWarningSent) {
+                                const emailTo = user?.email;
+                                queueEmailNotification(emailTo, 'Trial ending soon', `Your trial ends in ${daysRemaining} day(s). Add payment to avoid interruption.`, { subscriptionId: subscription.id, daysRemaining });
+                                subscription.trialWarningSent = true;
+                                subscription.updatedAt = new Date().toISOString();
+                                saveDb(db);
+                                auditLog('TRIAL_WARNING_SENT', userId, { subscriptionId: subscription.id, daysRemaining });
                             }
 
-                            saveDb(db);
-                            auditLog('TRIAL_EXPIRED', userId);
-
-                            const emailTo = user?.email;
-                            queueEmailNotification(emailTo, 'Trial expired', 'Your trial has ended. Add a payment method to keep using WebProMetrics.', { subscriptionId: subscription.id });
-
-                            return res.json({
-                                expired: true,
-                                message: 'Trial has expired. Please subscribe to continue.',
-                                trialEndedAt: subscription.trialEndsAt
+                            res.json({
+                                expired: false,
+                                trialActive: true,
+                                daysRemaining,
+                                trialEndsAt: subscription.trialEndsAt
                             });
+                        } catch (error) {
+                            console.error('Trial expiry check error:', error);
+                            res.status(500).json({ message: 'Failed to check trial status' });
                         }
-
-                        const daysRemaining = Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24));
-
-                        if (daysRemaining <= 2 && !subscription.trialWarningSent) {
-                            const emailTo = user?.email;
-                            queueEmailNotification(emailTo, 'Trial ending soon', `Your trial ends in ${daysRemaining} day(s). Add payment to avoid interruption.`, { subscriptionId: subscription.id, daysRemaining });
-                            subscription.trialWarningSent = true;
-                            subscription.updatedAt = new Date().toISOString();
-                            saveDb(db);
-                            auditLog('TRIAL_WARNING_SENT', userId, { subscriptionId: subscription.id, daysRemaining });
-                        }
-
-                        res.json({
-                            expired: false,
-                            trialActive: true,
-                            daysRemaining,
-                            trialEndsAt: subscription.trialEndsAt
-                        });
-                    } catch (error) {
-                        console.error('Trial expiry check error:', error);
-                        res.status(500).json({ message: 'Failed to check trial status' });
                     }
-                }
-            );
+                );
             }
         } catch (error) {
             console.error('Get platform data error:', error);
@@ -3638,6 +3660,22 @@ app.get('/api/platforms/:id/data',
         }
     }
 );
+
+// --- DB TEST ENDPOINT ---
+// import prisma from './services/db.js';
+
+app.get('/api/db-test', async (req, res) => {
+    try {
+        if (!prisma) {
+            return res.status(500).json({ connected: false, message: 'Prisma not initialized. Check DATABASE_URL.' });
+        }
+        // Try a simple query (list tables or users)
+        await prisma.$queryRaw`SELECT 1`;
+        res.json({ connected: true, message: 'Prisma is connected to MySQL.' });
+    } catch (e) {
+        res.status(500).json({ connected: false, message: e.message });
+    }
+});
 
 // --- SERVE FRONTEND ---
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -3660,48 +3698,48 @@ app.use('/api/*', (req, res) => {
 
 // --- ERROR TRACKING ---
 const errorLog = (error, req, context = {}) => {
-  if (!db.errorLogs) {
-    db.errorLogs = [];
-  }
-  
-  const errorEntry = {
-    id: 'error_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-    message: error.message,
-    stack: NODE_ENV === 'development' ? error.stack : undefined,
-    path: req?.path,
-    method: req?.method,
-    userId: req?.user?.id,
-    ip: req?.ip || req?.connection?.remoteAddress,
-    timestamp: new Date().toISOString(),
-    context
-  };
-  
-  db.errorLogs.push(errorEntry);
-  
-  // Keep only last 5000 errors
-  if (db.errorLogs.length > 5000) {
-    db.errorLogs = db.errorLogs.slice(-5000);
-  }
-  
-  saveDb(db);
-  console.error('Error logged:', errorEntry);
-  return errorEntry;
+    if (!db.errorLogs) {
+        db.errorLogs = [];
+    }
+
+    const errorEntry = {
+        id: 'error_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        message: error.message,
+        stack: NODE_ENV === 'development' ? error.stack : undefined,
+        path: req?.path,
+        method: req?.method,
+        userId: req?.user?.id,
+        ip: req?.ip || req?.connection?.remoteAddress,
+        timestamp: new Date().toISOString(),
+        context
+    };
+
+    db.errorLogs.push(errorEntry);
+
+    // Keep only last 5000 errors
+    if (db.errorLogs.length > 5000) {
+        db.errorLogs = db.errorLogs.slice(-5000);
+    }
+
+    saveDb(db);
+    console.error('Error logged:', errorEntry);
+    return errorEntry;
 };
 
 // --- ERROR HANDLING MIDDLEWARE (must be last) ---
 app.use((err, req, res, next) => {
     errorLog(err, req);
     console.error('Unhandled error:', err);
-    
+
     // Don't leak error details in production
     if (NODE_ENV === 'production') {
-        res.status(err.status || 500).json({ 
-            message: err.message || 'Internal server error' 
+        res.status(err.status || 500).json({
+            message: err.message || 'Internal server error'
         });
     } else {
-        res.status(err.status || 500).json({ 
+        res.status(err.status || 500).json({
             message: err.message || 'Internal server error',
-            stack: err.stack 
+            stack: err.stack
         });
     }
 });
@@ -3713,11 +3751,11 @@ if (process.env.NODE_ENV !== 'test') {
         console.log(`🔒 Security: ${NODE_ENV === 'production' ? 'Enabled' : 'Development mode'}`);
         console.log(`📊 Features: Audit Logging, Backups, KPIs, Scheduled Reports, GDPR, Multi-Tenant, RBAC`);
         console.log(`🌐 Access at: http://localhost:${PORT}`);
-        
+
         // Create initial backup
         createBackup();
         console.log(`💾 Initial backup created`);
-        
+
         if (NODE_ENV === 'development') {
             console.log(`⚠️  WARNING: Running in development mode. Not suitable for production!`);
         }
@@ -3749,4 +3787,4 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
-export default app;
+module.exports = app;

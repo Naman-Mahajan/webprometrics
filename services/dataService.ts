@@ -1,7 +1,8 @@
 
-import { Client, Report, ReportTemplate, GmbStat, Integration, PlatformData, Invoice, ServicePackage } from '../types';
+import { Client, Report, ReportTemplate, Integration, PlatformData, Invoice, ServicePackage } from '../types';
 import { config } from './config';
 import { api } from './api';
+import { TenantService } from './tenantService';
 
 // --- MOCK DATA CONSTANTS (Keep existing mock data for fallback/demo) ---
 const INITIAL_CLIENTS: Client[] = [
@@ -104,6 +105,8 @@ const INITIAL_INTEGRATIONS: Integration[] = [
   { id: 'x_ads', name: 'X (Twitter) Ads', provider: 'x', status: 'Connected', lastSync: '15 mins ago', description: 'Tweet engagement, followers, and ad impressions.' },
   { id: 'tiktok_ads', name: 'TikTok Ads', provider: 'tiktok', status: 'Disconnected', description: 'Video views, shares, likes, and campaign costs.' },
   { id: 'gmb', name: 'Google My Business', provider: 'google', status: 'Disconnected', description: 'Local profile views, calls, and directions.' },
+  { id: 'shopify', name: 'Shopify', provider: 'shopify', status: 'Disconnected', description: 'Store revenue, orders, AOV, and repeat rate.' },
+  { id: 'hubspot_crm', name: 'HubSpot CRM', provider: 'hubspot', status: 'Disconnected', description: 'Deals, pipeline, win rate, and lifecycle stages.' },
 ];
 
 const INITIAL_INVOICES: Invoice[] = [
@@ -120,6 +123,27 @@ const STORAGE_KEYS = {
   INVOICES: 'wpm_invoices',
   PACKAGES: 'wpm_packages',
 };
+
+let currentTenant = TenantService.getCurrentTenant().id;
+
+const getKey = (key: string) => TenantService.scopeKey(key, currentTenant);
+
+const readScoped = <T>(key: string, fallback: T): T => {
+    const raw = localStorage.getItem(getKey(key));
+    if (!raw) return fallback;
+    try {
+        return JSON.parse(raw) as T;
+    } catch {
+        return fallback;
+    }
+};
+
+const writeScoped = <T>(key: string, value: T): T => {
+    localStorage.setItem(getKey(key), JSON.stringify(value));
+    return value;
+};
+
+const stampTenant = <T extends { tenantId?: string }>(payload: T): T => ({ ...payload, tenantId: currentTenant });
 
 // --- REAL API IMPLEMENTATION ---
 
@@ -146,59 +170,59 @@ const DataServiceReal = {
 
 const DataServiceMock = {
     init: () => {
-        if (!localStorage.getItem(STORAGE_KEYS.CLIENTS)) localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(INITIAL_CLIENTS));
-        if (!localStorage.getItem(STORAGE_KEYS.REPORTS)) localStorage.setItem(STORAGE_KEYS.REPORTS, JSON.stringify(INITIAL_REPORTS));
-        if (!localStorage.getItem(STORAGE_KEYS.TEMPLATES)) localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(INITIAL_TEMPLATES));
-        if (!localStorage.getItem(STORAGE_KEYS.INTEGRATIONS)) localStorage.setItem(STORAGE_KEYS.INTEGRATIONS, JSON.stringify(INITIAL_INTEGRATIONS));
-        if (!localStorage.getItem(STORAGE_KEYS.INVOICES)) localStorage.setItem(STORAGE_KEYS.INVOICES, JSON.stringify(INITIAL_INVOICES));
-        if (!localStorage.getItem(STORAGE_KEYS.PACKAGES)) localStorage.setItem(STORAGE_KEYS.PACKAGES, JSON.stringify(INITIAL_PACKAGES));
+    const seedIfMissing = <T>(key: string, value: T) => {
+      if (!localStorage.getItem(getKey(key))) {
+        writeScoped(key, value);
+      }
+    };
+
+    seedIfMissing(STORAGE_KEYS.CLIENTS, INITIAL_CLIENTS.map(stampTenant));
+    seedIfMissing(STORAGE_KEYS.REPORTS, INITIAL_REPORTS.map(stampTenant));
+    seedIfMissing(STORAGE_KEYS.TEMPLATES, INITIAL_TEMPLATES.map(stampTenant));
+    seedIfMissing(STORAGE_KEYS.INTEGRATIONS, INITIAL_INTEGRATIONS.map(stampTenant));
+    seedIfMissing(STORAGE_KEYS.INVOICES, INITIAL_INVOICES.map(stampTenant));
+    seedIfMissing(STORAGE_KEYS.PACKAGES, INITIAL_PACKAGES);
     },
 
-    getClients: (): Client[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.CLIENTS) || '[]'),
+  getClients: (): Client[] => readScoped<Client[]>(STORAGE_KEYS.CLIENTS, []),
     addClient: (client: Client): Client[] => {
-        const clients = DataServiceMock.getClients();
-        const updated = [...clients, client];
-        localStorage.setItem(STORAGE_KEYS.CLIENTS, JSON.stringify(updated));
-        return updated;
+    const clients = DataServiceMock.getClients();
+    const updated = [...clients, stampTenant(client)];
+    return writeScoped(STORAGE_KEYS.CLIENTS, updated);
     },
     
-    getReports: (): Report[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.REPORTS) || '[]'),
+  getReports: (): Report[] => readScoped<Report[]>(STORAGE_KEYS.REPORTS, []),
     addReport: (report: Report): Report[] => {
         const reports = DataServiceMock.getReports();
-        const updated = [...reports, report];
-        localStorage.setItem(STORAGE_KEYS.REPORTS, JSON.stringify(updated));
-        return updated;
+    const updated = [...reports, stampTenant(report)];
+    return writeScoped(STORAGE_KEYS.REPORTS, updated);
     },
 
-    getTemplates: (): ReportTemplate[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.TEMPLATES) || '[]'),
+  getTemplates: (): ReportTemplate[] => readScoped<ReportTemplate[]>(STORAGE_KEYS.TEMPLATES, []),
     addTemplate: (template: ReportTemplate): ReportTemplate[] => {
         const templates = DataServiceMock.getTemplates();
-        const updated = [...templates, template];
-        localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(updated));
-        return updated;
+    const updated = [...templates, stampTenant(template)];
+    return writeScoped(STORAGE_KEYS.TEMPLATES, updated);
     },
     deleteTemplate: (id: string): ReportTemplate[] => {
         const templates = DataServiceMock.getTemplates();
-        const updated = templates.filter(t => t.id !== id);
-        localStorage.setItem(STORAGE_KEYS.TEMPLATES, JSON.stringify(updated));
-        return updated;
+    const updated = templates.filter(t => t.id !== id);
+    return writeScoped(STORAGE_KEYS.TEMPLATES, updated);
     },
 
-    getPackages: (): ServicePackage[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.PACKAGES) || '[]'),
+  getPackages: (): ServicePackage[] => readScoped<ServicePackage[]>(STORAGE_KEYS.PACKAGES, []),
     addPackage: (pkg: ServicePackage): ServicePackage[] => {
         const packages = DataServiceMock.getPackages();
         const updated = [...packages, pkg];
-        localStorage.setItem(STORAGE_KEYS.PACKAGES, JSON.stringify(updated));
-        return updated;
+    return writeScoped(STORAGE_KEYS.PACKAGES, updated);
     },
     deletePackage: (id: string): ServicePackage[] => {
         const packages = DataServiceMock.getPackages();
-        const updated = packages.filter(p => p.id !== id);
-        localStorage.setItem(STORAGE_KEYS.PACKAGES, JSON.stringify(updated));
-        return updated;
+    const updated = packages.filter(p => p.id !== id);
+    return writeScoped(STORAGE_KEYS.PACKAGES, updated);
     },
 
-    getIntegrations: (): Integration[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.INTEGRATIONS) || JSON.stringify(INITIAL_INTEGRATIONS)),
+  getIntegrations: (): Integration[] => readScoped<Integration[]>(STORAGE_KEYS.INTEGRATIONS, INITIAL_INTEGRATIONS.map(stampTenant)),
     toggleIntegration: (id: string): Integration[] => {
         const integrations = DataServiceMock.getIntegrations();
         const updated = integrations.map(int => {
@@ -211,22 +235,19 @@ const DataServiceMock = {
             }
             return int;
         });
-        localStorage.setItem(STORAGE_KEYS.INTEGRATIONS, JSON.stringify(updated));
-        return updated;
+              return writeScoped(STORAGE_KEYS.INTEGRATIONS, updated);
     },
 
-    getInvoices: (): Invoice[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.INVOICES) || '[]'),
+            getInvoices: (): Invoice[] => readScoped<Invoice[]>(STORAGE_KEYS.INVOICES, []),
     addInvoice: (invoice: Invoice): Invoice[] => {
         const invoices = DataServiceMock.getInvoices();
-        const updated = [invoice, ...invoices];
-        localStorage.setItem(STORAGE_KEYS.INVOICES, JSON.stringify(updated));
-        return updated;
+              const updated = [stampTenant(invoice), ...invoices];
+              return writeScoped(STORAGE_KEYS.INVOICES, updated);
     },
     payInvoice: (id: string): Invoice[] => {
         const invoices = DataServiceMock.getInvoices();
         const updated = invoices.map(inv => inv.id === id ? { ...inv, status: 'Paid' as const } : inv);
-        localStorage.setItem(STORAGE_KEYS.INVOICES, JSON.stringify(updated));
-        return updated;
+              return writeScoped(STORAGE_KEYS.INVOICES, updated);
     }
 };
 
@@ -237,6 +258,16 @@ if (config.USE_MOCK_DATA) {
 
 // Export a wrapper that checks config
 export const DataService = {
+  setTenant: (tenantId: string) => {
+    const current = TenantService.getCurrentTenant();
+    currentTenant = tenantId || 'public';
+    TenantService.setTenant({ id: currentTenant, name: current.name, role: current.role });
+    if (config.USE_MOCK_DATA) {
+      DataServiceMock.init();
+    }
+  },
+  getTenant: () => currentTenant,
+
     getClients: () => config.USE_MOCK_DATA ? DataServiceMock.getClients() : DataServiceReal.getClients(),
     addClient: (c: Client) => config.USE_MOCK_DATA ? DataServiceMock.addClient(c) : DataServiceReal.addClient(c),
     

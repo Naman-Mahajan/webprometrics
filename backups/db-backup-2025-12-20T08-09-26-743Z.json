@@ -1,0 +1,166 @@
+{
+  "users": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "email": "admin@example.com",
+      "password": "$2a$10$QVNzRM3LAtVhygFe3BqsWeh/cegEqf//Y9TzeArWaqfHmS4vwJTT6",
+      "role": "ADMIN",
+      "companyName": "Admin Company",
+      "isTrial": false,
+      "createdAt": "2025-12-19T13:26:48.292Z"
+    },
+    {
+      "id": "agency_owner_1766213035282",
+      "name": "Fred Marube",
+      "email": "marubefred02@gmail.com",
+      "password": "$2a$10$sFLcxhPMqJaG4IAkob0b8.xfJ0xOdRI8WyUY4zaMloNGOEApMkGC2",
+      "role": "ADMIN",
+      "companyName": "WebMetricsPro Agency",
+      "isTrial": false,
+      "subscription": "AGENCY",
+      "createdAt": "2025-12-20T06:43:55.284Z"
+    },
+    {
+      "id": "u_1766213268680",
+      "name": "Test User",
+      "email": "test_pl7zwh@example.com",
+      "password": "$2a$10$iORmbGyItGAhrDHtZEl9KeNiUIJusBjGJV46QGYZtloC2PjOegk3G",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:48.680Z",
+      "createdAt": "2025-12-20T06:47:48.680Z"
+    },
+    {
+      "id": "u_1766213278076",
+      "name": "Jest User",
+      "email": "jest_gz1xu7@example.com",
+      "password": "$2a$10$w5Fw3Bmq1KvbLk2WvQWZm.0XXj8VbDGCZRHOVd7E8lcrrYHAJRwli",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:58.076Z",
+      "createdAt": "2025-12-20T06:47:58.076Z"
+    },
+    {
+      "id": "u_1766217468287",
+      "name": "Test User",
+      "email": "test_j2pf8@example.com",
+      "password": "$2a$10$6ns/rWQIHh6gTi6KlPyBmecfgSlaG9Zuz/kptyjK2UZr517vk.6x6",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T07:57:48.287Z",
+      "createdAt": "2025-12-20T07:57:48.287Z"
+    }
+  ],
+  "clients": [],
+  "reports": [],
+  "templates": [],
+  "packages": [
+    {
+      "id": "pkg_1",
+      "name": "SEO Starter",
+      "description": "Essential SEO monitoring.",
+      "price": 25000,
+      "interval": "Monthly",
+      "features": [
+        "Monthly Site Audit",
+        "Keyword Tracking"
+      ]
+    },
+    {
+      "id": "pkg_2",
+      "name": "PPC Growth",
+      "description": "Comprehensive ad management.",
+      "price": 65000,
+      "interval": "Monthly",
+      "features": [
+        "Ad Spend Management",
+        "Weekly Optimization"
+      ]
+    }
+  ],
+  "invoices": [],
+  "integrations": [
+    {
+      "id": "google_ads",
+      "name": "Google Ads",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Campaign performance..."
+    },
+    {
+      "id": "ga4",
+      "name": "Google Analytics 4",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Web traffic..."
+    },
+    {
+      "id": "meta_ads",
+      "name": "Meta Ads",
+      "provider": "meta",
+      "status": "Disconnected",
+      "description": "Social campaign..."
+    },
+    {
+      "id": "gmb",
+      "name": "Google My Business",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Local profile views..."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "provider": "linkedin",
+      "status": "Disconnected",
+      "description": "Company page insights..."
+    },
+    {
+      "id": "x_ads",
+      "name": "X (Twitter) Ads",
+      "provider": "x",
+      "status": "Disconnected",
+      "description": "Tweet engagement..."
+    },
+    {
+      "id": "tiktok_ads",
+      "name": "TikTok Ads",
+      "provider": "tiktok",
+      "status": "Disconnected",
+      "description": "Video views..."
+    }
+  ],
+  "passwordResetTokens": [],
+  "auditLogs": [],
+  "clientReportCustomizations": [],
+  "kpis": [],
+  "scheduledReports": [],
+  "subscriptions": [],
+  "oauthTokens": [],
+  "paymentConfig": {
+    "stripe": {
+      "enabled": false,
+      "publishableKey": "",
+      "secretKey": "",
+      "webhookSecret": ""
+    },
+    "paypal": {
+      "enabled": false,
+      "clientId": "",
+      "clientSecret": "",
+      "mode": "sandbox"
+    },
+    "bankAccount": {
+      "accountName": "",
+      "accountNumber": "",
+      "bankName": "",
+      "swiftCode": "",
+      "routingNumber": ""
+    }
+  },
+  "paymentTransactions": []
+}

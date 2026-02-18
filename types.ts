@@ -49,6 +49,7 @@ export interface Client {
   status: 'Active' | 'Pending' | 'Inactive';
   nextReport: string;
   logo?: string;
+  tenantId?: string;
 }
 
 export interface Report {
@@ -59,6 +60,7 @@ export interface Report {
   status: 'Sent' | 'Draft' | 'Scheduled';
   platform: 'Google Ads' | 'Facebook' | 'SEO' | 'Mixed' | 'Google My Business';
   widgets?: ReportWidgetConfig[];
+  tenantId?: string;
 }
 
 export interface ReportTemplate {
@@ -69,6 +71,7 @@ export interface ReportTemplate {
   isCustom: boolean;
   widgets: ReportWidgetConfig[];
   lastModified?: string;
+  tenantId?: string;
 }
 
 export interface GmbStat {
@@ -81,10 +84,11 @@ export interface GmbStat {
 export interface Integration {
   id: string;
   name: string;
-  provider: 'google' | 'meta' | 'linkedin' | 'x' | 'tiktok' | 'generic';
+  provider: 'google' | 'meta' | 'linkedin' | 'x' | 'tiktok' | 'generic' | 'shopify' | 'hubspot';
   status: 'Connected' | 'Disconnected';
   lastSync?: string;
   description: string;
+  tenantId?: string;
 }
 
 export interface PlatformMetric {
@@ -99,6 +103,13 @@ export interface PlatformData {
   metrics: PlatformMetric[];
   chartData?: any[];
 }
+
+export interface UnifiedMetric {
+  key: string;
+  label: string;
+  unit?: string;
+  value?: number;
+}
 export interface Invoice {
     id: string;
     clientName: string;
@@ -107,4 +118,5 @@ export interface Invoice {
     dueDate: string;
     status: 'Paid' | 'Pending' | 'Overdue';
     items: { description: string; amount: number }[];
+  tenantId?: string;
 }

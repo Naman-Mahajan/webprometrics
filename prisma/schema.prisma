@@ -1,0 +1,179 @@
+// Prisma schema for MySQL (cPanel)
+// Provider: mysql
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  password       String
+  role           String   @default("USER") // ADMIN | MANAGER | USER | CLIENT | VIEWER
+  companyName    String? 
+  tenantId       String?
+  isTrial        Boolean  @default(false)
+  trialEndsAt    DateTime?
+  twoFactorEnabled Boolean @default(false)
+  twoFactorSecret  String?
+  subscription   Subscription?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  Clients        Client[]
+  Reports        Report[]
+
+  @@index([tenantId])
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  website     String
+  status      String   // Active | Pending | Inactive
+  nextReport  String
+  logo        String?
+  tenantId    String?
+  companyName String?
+  userId      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner       User?    @relation(fields: [userId], references: [id])
+  Reports     Report[]
+
+  @@index([tenantId])
+  @@index([userId])
+}
+
+model Report {
+  id          String   @id @default(cuid())
+  clientName  String
+  clientId    String?
+  name        String
+  date        String
+  status      String   // Sent | Draft | Scheduled
+  platform    String   // Google Ads | Facebook | SEO | Mixed | Google My Business
+  tenantId    String?
+  companyName String?
+  userId      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner       User?    @relation(fields: [userId], references: [id])
+  client      Client?  @relation(fields: [clientId], references: [id])
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([clientId])
+}
+
+model Template {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  category     String
+  isCustom     Boolean  @default(true)
+  lastModified String?
+  tenantId     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Int
+  interval    String
+  features    Json
+}
+
+model Invoice {
+  id         String   @id @default(cuid())
+  clientName String
+  amount     Int
+  date       String
+  dueDate    String
+  status     String   // Paid | Pending | Overdue
+  items      Json
+  tenantId   String?
+  createdAt  DateTime @default(now())
+
+  @@index([tenantId])
+}
+
+model Integration {
+  id          String   @id
+  name        String
+  provider    String
+  status      String   // Connected | Disconnected
+  lastSync    String?
+  description String
+  tenantId    String?
+
+  @@index([tenantId])
+}
+
+model OAuthToken {
+  id        String   @id @default(cuid())
+  userId    String
+  provider  String
+  scope     String
+  data      String   // encrypted token blob
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  userId    String
+  timestamp DateTime @default(now())
+  details   Json
+  ip        String?
+
+  @@index([userId])
+}
+
+model ScheduledReport {
+  id          String   @id @default(cuid())
+  clientId    String
+  clientName  String
+  frequency   String       // daily | weekly | monthly
+  dayOfWeek   Int?
+  dayOfMonth  Int?
+  time        String
+  recipients  Json
+  templateId  String?
+  nextRun     DateTime?
+  lastRun     DateTime?
+  isActive    Boolean @default(true)
+  tenantId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Subscription {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  plan             String
+  status           String
+  billingCycle     String?
+  trialEndsAt      DateTime?
+  trialDaysRemaining Int?
+  expiresAt        DateTime?
+
+  user             User     @relation(fields: [userId], references: [id])
+}

@@ -1,0 +1,253 @@
+{
+  "users": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "email": "admin@example.com",
+      "password": "$2a$10$QVNzRM3LAtVhygFe3BqsWeh/cegEqf//Y9TzeArWaqfHmS4vwJTT6",
+      "role": "ADMIN",
+      "companyName": "Admin Company",
+      "isTrial": false,
+      "createdAt": "2025-12-19T13:26:48.292Z"
+    },
+    {
+      "id": "agency_owner_1766213035282",
+      "name": "Fred Marube",
+      "email": "marubefred02@gmail.com",
+      "password": "$2a$10$sFLcxhPMqJaG4IAkob0b8.xfJ0xOdRI8WyUY4zaMloNGOEApMkGC2",
+      "role": "ADMIN",
+      "companyName": "WebMetricsPro Agency",
+      "isTrial": false,
+      "subscription": "AGENCY",
+      "createdAt": "2025-12-20T06:43:55.284Z"
+    },
+    {
+      "id": "u_1766213268680",
+      "name": "Test User",
+      "email": "test_pl7zwh@example.com",
+      "password": "$2a$10$iORmbGyItGAhrDHtZEl9KeNiUIJusBjGJV46QGYZtloC2PjOegk3G",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:48.680Z",
+      "createdAt": "2025-12-20T06:47:48.680Z"
+    },
+    {
+      "id": "u_1766213278076",
+      "name": "Jest User",
+      "email": "jest_gz1xu7@example.com",
+      "password": "$2a$10$w5Fw3Bmq1KvbLk2WvQWZm.0XXj8VbDGCZRHOVd7E8lcrrYHAJRwli",
+      "role": "USER",
+      "companyName": "JestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T06:47:58.076Z",
+      "createdAt": "2025-12-20T06:47:58.076Z"
+    },
+    {
+      "id": "u_1766217468287",
+      "name": "Test User",
+      "email": "test_j2pf8@example.com",
+      "password": "$2a$10$6ns/rWQIHh6gTi6KlPyBmecfgSlaG9Zuz/kptyjK2UZr517vk.6x6",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T07:57:48.287Z",
+      "createdAt": "2025-12-20T07:57:48.287Z"
+    },
+    {
+      "id": "u_1766218236969",
+      "name": "Test User",
+      "email": "test_7jqshb@example.com",
+      "password": "$2a$10$Q7FpYY5EKukrV.adkj0GoO7OmpmIU6PZ2nz7BuTYPAzcK2uneqgNm",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T08:10:36.970Z",
+      "createdAt": "2025-12-20T08:10:36.970Z"
+    },
+    {
+      "id": "u_1766221358883",
+      "name": "Client Test User",
+      "email": "client_test_s5j45t@example.com",
+      "password": "$2a$10$dkQupU7ApDuXN9bTy2xpNuTx5fe43iX4yWJzNFurz68QsngITphqq",
+      "role": "USER",
+      "companyName": "ClientTestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:38.883Z",
+      "createdAt": "2025-12-20T09:02:38.883Z"
+    },
+    {
+      "id": "u_1766221359706",
+      "name": "No Client User",
+      "email": "noclient_beyiry@example.com",
+      "password": "$2a$10$JFhlmnBJ5XBuAN11viSuP.MHFPgLYf1aeik.XNxpnCcnNo1U5FZv2",
+      "role": "USER",
+      "companyName": "NoClientCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:39.706Z",
+      "createdAt": "2025-12-20T09:02:39.706Z"
+    },
+    {
+      "id": "u_1766221361050",
+      "name": "User 1",
+      "email": "isolation1_d7rfcr@example.com",
+      "password": "$2a$10$X2BXFHcu5Tzgcm2WZDGo5ejBKB8JIkzSUl3RMoOz/FDw4BK797G5K",
+      "role": "USER",
+      "companyName": "User1Co",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:41.050Z",
+      "createdAt": "2025-12-20T09:02:41.050Z"
+    },
+    {
+      "id": "u_1766221368961",
+      "email": "test_xiicdt@example.com",
+      "password": "$2a$10$pwQr/TOvbORuzWbYUCUDFOjEDvE1FTutkB9sQWwg0O6Fq1o9kXZHW",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:48.961Z",
+      "createdAt": "2025-12-20T09:02:48.961Z"
+    },
+    {
+      "id": "u_1766221369239",
+      "name": "Test User",
+      "email": "invalid-email",
+      "password": "$2a$10$z.G65lvMZOuUkLH9PGlQJeq2d65fGekCKBLdL7gL4eahrlitsRL1q",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.239Z",
+      "createdAt": "2025-12-20T09:02:49.239Z"
+    },
+    {
+      "id": "u_1766221369489",
+      "name": "Test User",
+      "email": "test_4qpqbj@example.com",
+      "password": "$2a$10$iYdnbJiegqphiEWsutPdnufyNz8hMq.KOhZDAINRubcEOPZKZOTJ2",
+      "role": "USER",
+      "companyName": "TestCo",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.489Z",
+      "createdAt": "2025-12-20T09:02:49.489Z"
+    },
+    {
+      "id": "u_1766221369748",
+      "name": "Test User 1",
+      "email": "test_zgfxga@example.com",
+      "password": "$2a$10$DRLnBRE3iZWR6x.20WyHTO/7w.oAT3ZOuU6GNrTS76Ex9ffwSIBxu",
+      "role": "USER",
+      "companyName": "TestCo1",
+      "isTrial": true,
+      "trialEndsAt": "2026-01-03T09:02:49.748Z",
+      "createdAt": "2025-12-20T09:02:49.748Z"
+    }
+  ],
+  "clients": [],
+  "reports": [],
+  "templates": [],
+  "packages": [
+    {
+      "id": "pkg_1",
+      "name": "SEO Starter",
+      "description": "Essential SEO monitoring.",
+      "price": 25000,
+      "interval": "Monthly",
+      "features": [
+        "Monthly Site Audit",
+        "Keyword Tracking"
+      ]
+    },
+    {
+      "id": "pkg_2",
+      "name": "PPC Growth",
+      "description": "Comprehensive ad management.",
+      "price": 65000,
+      "interval": "Monthly",
+      "features": [
+        "Ad Spend Management",
+        "Weekly Optimization"
+      ]
+    }
+  ],
+  "invoices": [],
+  "integrations": [
+    {
+      "id": "google_ads",
+      "name": "Google Ads",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Campaign performance..."
+    },
+    {
+      "id": "ga4",
+      "name": "Google Analytics 4",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Web traffic..."
+    },
+    {
+      "id": "meta_ads",
+      "name": "Meta Ads",
+      "provider": "meta",
+      "status": "Disconnected",
+      "description": "Social campaign..."
+    },
+    {
+      "id": "gmb",
+      "name": "Google My Business",
+      "provider": "google",
+      "status": "Disconnected",
+      "description": "Local profile views..."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "provider": "linkedin",
+      "status": "Disconnected",
+      "description": "Company page insights..."
+    },
+    {
+      "id": "x_ads",
+      "name": "X (Twitter) Ads",
+      "provider": "x",
+      "status": "Disconnected",
+      "description": "Tweet engagement..."
+    },
+    {
+      "id": "tiktok_ads",
+      "name": "TikTok Ads",
+      "provider": "tiktok",
+      "status": "Disconnected",
+      "description": "Video views..."
+    }
+  ],
+  "passwordResetTokens": [],
+  "auditLogs": [],
+  "clientReportCustomizations": [],
+  "kpis": [],
+  "scheduledReports": [],
+  "subscriptions": [],
+  "oauthTokens": [],
+  "paymentConfig": {
+    "stripe": {
+      "enabled": false,
+      "publishableKey": "",
+      "secretKey": "",
+      "webhookSecret": ""
+    },
+    "paypal": {
+      "enabled": false,
+      "clientId": "",
+      "clientSecret": "",
+      "mode": "sandbox"
+    },
+    "bankAccount": {
+      "accountName": "",
+      "accountNumber": "",
+      "bankName": "",
+      "swiftCode": "",
+      "routingNumber": ""
+    }
+  },
+  "paymentTransactions": []
+}

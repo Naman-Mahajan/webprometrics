@@ -6,70 +6,105 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigateToSignup }) => {
+  const trustBadges = [
+    'ISO-ready security',
+    'GDPR-friendly data handling',
+    '99.9% API uptime',
+    'SOC2 controls underway'
+  ];
+
+  const marqueeLogos = ['Safaricom', 'Equity Bank', 'Kenya Airways', 'Britam', 'Nation Media', 'KCB Group'];
+
   return (
     <section className="relative pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden bg-gradient-to-b from-white via-brand-50/30 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
           {/* Text Content */}
           <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.15] mb-6">
-              Simple Marketing Reporting <br className="hidden lg:block" />
-              <span className="text-brand-800">Software for Agencies</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-800 text-sm font-semibold mb-4">
+              All channels. One report. Zero chaos.
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.1] mb-6">
+              Modern reporting for agencies that move fast
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-8">
-              Automate branded marketing reports from 50+ platforms.<br />
-              Save time and impress your clients.
+              Ship client-ready, branded dashboards in minutes. Aggregate 50+ data sources, automate delivery, and keep every stakeholder in the loop without slide decks or late-night exports.
             </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
-              <Button variant="accent" size="lg" onClick={onNavigateToSignup} className="w-full sm:w-auto font-bold shadow-lg shadow-accent-200 text-brand-950">
-                TRY IT FREE
+
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+              <Button variant="accent" size="lg" onClick={onNavigateToSignup} className="w-full sm:w-auto font-bold shadow-lg shadow-accent-200 text-brand-950 hover:shadow-xl hover:scale-105 transition-all">
+                🚀 Start free 14-day trial
               </Button>
+              <p className="text-sm text-gray-600 font-medium">No card needed • Full feature access</p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+              {trustBadges.map((badge) => (
+                <div key={badge} className="flex items-center gap-2 text-sm font-semibold text-gray-800 bg-white/70 border border-gray-200 rounded-lg px-3 py-2 shadow-sm">
+                  <span className="text-green-600">✓</span>
+                  <span>{badge}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Video/Visual Section */}
+          {/* Visual: Live metrics board */}
           <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
-            <div className="relative rounded-2xl shadow-2xl bg-white border border-gray-200 overflow-hidden aspect-video">
-              {/* Video Placeholder - In production, replace with actual video embed */}
-              <div className="w-full h-full bg-gradient-to-br from-brand-100 to-accent-100 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                    <svg className="w-10 h-10 text-brand-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
+            <div className="relative rounded-2xl shadow-2xl bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 text-white overflow-hidden">
+              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-white/70">This week</p>
+                  <h3 className="text-2xl font-bold">Executive Performance Board</h3>
+                </div>
+                <div className="px-3 py-1 rounded-full bg-white/15 text-xs font-semibold">Live</div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 p-6">
+                {[{
+                  label: 'Cross-channel ROI', value: '412%', delta: '+32% WoW'
+                }, {
+                  label: 'Accounts reported', value: '148', delta: '+12 new'
+                }, {
+                  label: 'Avg. client CSAT', value: '4.9/5', delta: 'NPS 68'
+                }, {
+                  label: 'Reports auto-sent', value: '1,240', delta: '98% on time'
+                }].map((card) => (
+                  <div key={card.label} className="rounded-xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                    <p className="text-xs uppercase tracking-wide text-white/70 font-semibold">{card.label}</p>
+                    <div className="flex items-baseline gap-2 mt-2">
+                      <span className="text-3xl font-bold">{card.value}</span>
+                    </div>
+                    <p className="text-xs text-emerald-200 mt-2">{card.delta}</p>
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Product Demo Video</p>
+                ))}
+              </div>
+              <div className="p-6 border-t border-white/10 bg-white/5">
+                <p className="text-sm text-white/80 mb-3 font-semibold">Auditable delivery log</p>
+                <div className="grid grid-cols-3 gap-3 text-sm text-white/80">
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs text-white/60">Email & Slack</p>
+                    <p className="font-semibold">Scheduled drops</p>
+                  </div>
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs text-white/60">Brand-ready</p>
+                    <p className="font-semibold">Client portals</p>
+                  </div>
+                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-xs text-white/60">Single source</p>
+                    <p className="font-semibold">Audit trail</p>
+                  </div>
                 </div>
               </div>
-              
-              {/* Optional: Add actual video embed here */}
-              {/* <iframe 
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-                title="Product Demo"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe> */}
             </div>
-          </div>
 
-        </div>
-
-        {/* Trusted By Section */}
-        <div className="mt-16 pt-12 border-t border-gray-200">
-          <p className="text-center text-sm uppercase tracking-wider text-gray-500 font-semibold mb-8">
-            Trusted by 3,000+ Marketing Agencies to Simplify Reporting
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
-            {/* Logo Placeholders - Replace with actual client logos */}
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-8 w-24 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs text-gray-500 font-medium">Client {i + 1}</span>
-              </div>
-            ))}
+            {/* Trust strip */}
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-600 bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm">
+              <span className="text-gray-500 font-semibold">Trusted by teams at</span>
+              {marqueeLogos.map((logo) => (
+                <span key={logo} className="px-3 py-1 rounded-lg border border-gray-200 bg-gray-50 text-gray-800 font-semibold text-xs uppercase tracking-wide">
+                  {logo}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

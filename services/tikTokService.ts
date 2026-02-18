@@ -89,4 +89,13 @@ export const TikTokService = {
                 ],
                 chartData
             };
-        } catch
+        } catch (error) {
+            console.error('TikTokService.fetchData failed', error);
+            return {
+                id: 'tiktok_ads',
+                metrics: [],
+                chartData: []
+            };
+        }
+    }
+};

@@ -32,12 +32,48 @@ PORT=8080
 NODE_ENV=production
 
 # JWT Configuration
+**Option A: Copy the example file**
+
+Windows (PowerShell):
+```powershell
+Copy-Item .env.example .env
+```
+
+Windows (Command Prompt):
+```bat
+copy .env.example .env
+```
+
+macOS/Linux:
+```bash
+cp .env.example .env
+```
+
 JWT_SECRET=7oPS78NJKNRXiZzTJLp231vz0RAEcGfVfnBiK7egLTQ=
 
+**Option B: Create manually**
+Create a file named `.env` in the project root with this content:
 # CORS Configuration
 # REPLACE THESE WITH YOUR ACTUAL DOMAIN(S)
 ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
 ```
+
+# Database (optional but recommended for MySQL/Prisma)
+# Example format shown in .env.example
+# DATABASE_URL=mysql://user:password@host:3306/database?connection_limit=5&pool_timeout=15
+
+# Token encryption for storing third‑party OAuth tokens (recommended)
+# If not set, falls back to JWT_SECRET in dev
+TOKEN_ENCRYPTION_KEY=your-32+char-random-string
+
+# Admin bootstrap (optional)
+# Used only for the initial admin account seeding when none exists
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=admin123
+
+# Frontend (dev only)
+# If you run the frontend via Vite dev server, set API URL
+# VITE_API_URL=http://localhost:8080/api
 
 ### Step 3: Update with Your Domain
 
@@ -45,8 +81,56 @@ ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
 
 **Examples:**
 - Single domain: `ALLOWED_ORIGINS=https://webprometrics.com`
-- Multiple domains: `ALLOWED_ORIGINS=https://webprometrics.com,https://www.webprometrics.com`
-- With subdomain: `ALLOWED_ORIGINS=https://app.webprometrics.com,https://webprometrics.com`
+### `DATABASE_URL`
+- **Purpose:** Enables MySQL/Prisma persistence instead of JSON file storage
+- **Format:** Standard Prisma MySQL URL (see `.env.example` for a working template)
+- **Required:** ⚠️ Optional (recommended for production)
+
+### `TOKEN_ENCRYPTION_KEY`
+- **Purpose:** Encrypts stored third‑party OAuth tokens at rest
+- **Security:** Use a strong secret; if not set, falls back to `JWT_SECRET` in dev
+- **Required:** ⚠️ Optional (recommended for production)
+
+### `ADMIN_EMAIL`, `ADMIN_PASSWORD`
+- **Purpose:** Seeds the first admin user when the DB is empty
+- **Default:** `admin@example.com` / `admin123`
+- **Required:** ⚠️ Optional (use to control initial credentials)
+
+### `VITE_API_URL` (frontend dev)
+- **Purpose:** Points the Vite dev server to the backend API
+- **Default:** Uses `window.location.origin + /api` in production build
+- **Required:** ⚠️ Optional (use in local development)
+
+
+## OAuth & Integrations (Optional)
+
+Only set these if you plan to enable the related integrations. The server will gracefully disable flows when unset.
+
+- Google Search Console / Ads / GMB:
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - `GOOGLE_REDIRECT_URI` (e.g., `https://yourdomain.com/api/oauth/google/callback`)
+
+- Meta (Facebook) Ads:
+   - `META_APP_ID` (or legacy `FACEBOOK_APP_ID`)
+   - `META_APP_SECRET` (or legacy `FACEBOOK_APP_SECRET`)
+   - `META_REDIRECT_URI` (defaults to first `ALLOWED_ORIGINS` + `/api/oauth/meta/callback`)
+
+- X (Twitter) OAuth2:
+   - `TWITTER_CLIENT_ID`
+   - `TWITTER_REDIRECT_URI` (defaults to first `ALLOWED_ORIGINS` + `/api/oauth/x/callback`)
+
+- LinkedIn OAuth:
+   - `LINKEDIN_CLIENT_ID`
+   - `LINKEDIN_CLIENT_SECRET`
+   - `LINKEDIN_REDIRECT_URI` (defaults to first `ALLOWED_ORIGINS` + `/api/oauth/linkedin/callback`)
+
+- Google Ads Developer Token (if using Google Ads API):
+   - `GOOGLE_ADS_DEVELOPER_TOKEN`
+
+- Webhooks (if verifying inbound webhooks):
+   - `WEBHOOK_SECRET`
+
 
 ### Step 4: Verify .env File
 
@@ -70,7 +154,28 @@ You should see:
 🚀 Server running on port 8080
 📦 Environment: production
 🔒 Security: Enabled
-```
+TOKEN_ENCRYPTION_KEY=<strong-random-secret>
+DATABASE_URL="mysql://user:password@host:3306/database?connection_limit=5&pool_timeout=15"
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=admin123
+
+# Optional: integrations
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
+META_APP_ID=
+META_APP_SECRET=
+META_REDIRECT_URI=
+TWITTER_CLIENT_ID=
+TWITTER_REDIRECT_URI=
+LINKEDIN_CLIENT_ID=
+LINKEDIN_CLIENT_SECRET=
+LINKEDIN_REDIRECT_URI=
+GOOGLE_ADS_DEVELOPER_TOKEN=
+WEBHOOK_SECRET=
+
+# Frontend (dev only)
+# VITE_API_URL=http://localhost:8080/api
 
 If you see an error about `JWT_SECRET`, check your `.env` file.
 
