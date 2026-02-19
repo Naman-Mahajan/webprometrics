@@ -1436,7 +1436,6 @@ app.get('/api', (req, res) => {
 
 // Auth: Login
 app.post('/api/auth/login',
-    authLimiter,
     [
         body('email').isEmail().normalizeEmail(),
         body('password').notEmpty().withMessage('Password is required'),
@@ -1475,7 +1474,6 @@ app.post('/api/auth/login',
 
 // Auth: Signup
 app.post('/api/auth/signup',
-    authLimiter,
     async (req, res) => {
         try {
             const { name, email, password, companyName } = req.body;
